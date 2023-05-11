@@ -1,4 +1,8 @@
 <mat-card>
+    <mat-card-title>
+        <span *ngIf="question.id">Savolni o'zgartirish</span>
+        <span *ngIf="!question.id">Yangi savol</span>
+    </mat-card-title>
     <mat-card-content>
         <form>
             <mat-form-field class="fullWith">
@@ -7,12 +11,19 @@
             <mat-form-field class="fullWith">
                 <input  [(ngModel)]="question.correctAsnwer" name="correctAsnwer" matInput placeholder="To'g'ri javob">
             </mat-form-field>
-            <mat-form-field class="fullWith" *ngFor="let worngAsnwer of question.worngAsnwers;let i = index">
-                <input [(ngModel)]="question.worngAsnwers[i]" name="worngAsnwer{{i}}" matInput placeholder="Noto'g'ri javob {{i+1}}">
+            <mat-form-field class="fullWith">
+                <input  [(ngModel)]="question.worngAsnwer1" name="worngAsnwer1" matInput placeholder="Noto'g'ri javob">
+            </mat-form-field>
+            <mat-form-field class="fullWith">
+                <input  [(ngModel)]="question.worngAsnwer2" name="worngAsnwer2" matInput placeholder="Noto'g'ri javob">
+            </mat-form-field>
+            <mat-form-field class="fullWith">
+                <input  [(ngModel)]="question.worngAsnwer3" name="worngAsnwer3" matInput placeholder="Noto'g'ri javob">
             </mat-form-field>
         </form>
     </mat-card-content>
     <mat-card-actions>
         <button (click)="post()" mat-button>Jo'nat</button>
+        <button (click)="resetQuesttion()" mat-button>Yangi savol</button>
     </mat-card-actions>
 </mat-card>
