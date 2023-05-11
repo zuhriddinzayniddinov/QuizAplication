@@ -9,7 +9,8 @@ export class QuestionComponent {
     question = {
         text: 'O\'zbekiston poytaxti',
         correctAsnwer:'Toshkent',
-        worngAsnwers: ['Samarqand','Navoiy','Andijon']
+        worngAsnwers: ['Samarqand','Navoiy','Andijon'],
+        stringworngAsnwers:''
     };
 
     constructor(private apiSvc: ApiService){
