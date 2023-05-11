@@ -18,15 +18,25 @@ namespace Quiz.Controllers
         }
 
         [HttpPost]
-        public async Task Post([FromBody] Question question)
+        public async Task<IActionResult> Post([FromBody] Question question)
         {
-            await this._questionsServiceis.CreatAsync(question);
+            question = await this._questionsServiceis.CreatAsync(question);
+            return Ok(question);
         }
 
         [HttpGet]
         public async Task<IEnumerable<Question>> Get()
         {
             return await this._questionsServiceis.GetAllAsync();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(long id, [FromBody] Question question)
+        {
+            if (id != question.Id)
+                return BadRequest();
+            question = await this._questionsServiceis.UpdateAsync(question);
+            return Ok(question);
         }
     }
 }

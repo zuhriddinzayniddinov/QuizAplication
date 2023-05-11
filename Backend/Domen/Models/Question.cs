@@ -5,15 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domen.Models
+namespace Domen.Models;
+
+public class Question
 {
-    public class Question
-    {
-        public long Id { get; set; }
-        public string text { get; set; }
-        public string correctAsnwer { get; set; }
-        [NotMapped]
-        public List<string> worngAsnwers { get; set; }
-        public string stringworngAsnwers { get; set; }
-    }
+    public long Id { get; set; }
+    public string text { get; set; }
+    public string correctAsnwer { get; set; }
+    public string worngAsnwer1 { get; set; }
+    public string worngAsnwer2 { get; set; }
+    public string worngAsnwer3 { get; set; }
 }

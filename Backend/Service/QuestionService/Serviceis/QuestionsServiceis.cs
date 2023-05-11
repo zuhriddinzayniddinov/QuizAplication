@@ -13,7 +13,6 @@ public class QuestionsServiceis:IQuestionsServiceis
 
     public async Task<Question> CreatAsync(Question question)
     {
-        question.stringworngAsnwers = string.Join("$:$", question.worngAsnwers);
         return await this._questionRepository.CreateAsync(question);
     }
 
@@ -25,11 +24,6 @@ public class QuestionsServiceis:IQuestionsServiceis
     public async Task<IEnumerable<Question>> GetAllAsync()
     {
         var questions = await this._questionRepository.GetAllAsync();
-        foreach (var question in questions)
-        {
-            question.worngAsnwers = question.stringworngAsnwers.Split("$:$").ToList();
-        }
-
         return questions;
     }
 

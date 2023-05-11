@@ -1,4 +1,5 @@
 ﻿using Domen.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repasitory.Questions.Repository
 {
@@ -18,9 +19,11 @@ namespace Infrastructure.Repasitory.Questions.Repository
             return question;
         }
 
-        public Task<Question> UpdateAsync(Question question)
+        public async Task<Question> UpdateAsync(Question question)
         {
-            throw new NotImplementedException();
+            this._appDbContext.Questions.Entry(question).State = EntityState.Modified;
+            await this._appDbContext.SaveChangesAsync();
+            return question;
         }
 
         public Task<Question> DeleteAsync(long id)
