@@ -18,10 +18,14 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { NavbarComponent } from './navbar/navbar.component';
+import { QuizComponent } from './quiz/quiz.component';
+import { QuizzesComponent } from './quizzes/quizzes.component';
 
 let routes = [
   {path: 'question', component :QuestionComponent},
+  {path: 'question/:quizid', component :QuestionComponent},
   {path: 'questions',component : QuestionsComponent},
+  {path: 'quiz',component : QuizComponent},
   {path: '',component:HomeComponent}
 ]
 
@@ -31,7 +35,9 @@ let routes = [
     QuestionComponent,
     QuestionsComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    QuizComponent,
+    QuizzesComponent
   ],
   imports: [
     BrowserModule,

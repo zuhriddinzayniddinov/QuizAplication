@@ -6,5 +6,5 @@ export class Question {
     worngAsnwer1:String = '';
     worngAsnwer2:String = '';
     worngAsnwer3:String = '';
-    
+    quizid:number = 0;
 }
