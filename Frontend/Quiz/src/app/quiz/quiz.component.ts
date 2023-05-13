@@ -22,6 +22,7 @@ export class QuizComponent {
       this.apiSvc.putQuiz(this.quiz);
     else
       this.apiSvc.postQuiz(this.quiz);
+    this.resetQuiz();
   }
 
   resetQuiz() {

@@ -13,6 +13,6 @@
     <mat-card-actions>
         <button (click)="post()" mat-button>Jo'nat</button>
         <button (click)="resetQuiz()" mat-button>Yangi</button>
-        <button (click)="navigateToQuestions()" mat-button>Savollar</button>
+        <button [disabled]="!quiz.id" (click)="navigateToQuestions()" mat-button>Savollar</button>
     </mat-card-actions>
 </mat-card>

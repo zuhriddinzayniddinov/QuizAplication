@@ -7,15 +7,18 @@ import { ApiService } from '../api.service';
   styleUrls: ['./quizzes.component.css']
 })
 export class QuizzesComponent {
-  quizzes:any;
+  quizzes: any;
 
-  constructor(public apiSvc: ApiService){
+  constructor(public apiSvc: ApiService) {
 
   }
 
-  ngOnInit()  {
+  ngOnInit() {
     this.apiSvc.getQuizzes().subscribe(result => {
-        this.quizzes = result;
-    })
-}
+      this.quizzes = result;
+    });
+    this.apiSvc.getNewQuiz().subscribe(newQuiz => {
+      this.quizzes.push(newQuiz);
+    });
+  }
 }
