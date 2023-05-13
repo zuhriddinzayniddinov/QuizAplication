@@ -5,9 +5,9 @@ namespace Infrastructure.Repasitory.Questions.Repository
 {
     public class QuestionRepository : IQuestionRepository
     {
-        private readonly AppDbContext.AppDbContext _appDbContext;
+        private readonly AppDbContext _appDbContext;
 
-        public QuestionRepository(AppDbContext.AppDbContext appDbContext)
+        public QuestionRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }

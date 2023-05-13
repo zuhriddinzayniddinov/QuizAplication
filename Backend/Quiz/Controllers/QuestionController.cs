@@ -1,6 +1,4 @@
 ﻿using Domen.Models;
-using Infrastructure.AppDbContext;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Service.QuestionService;
 

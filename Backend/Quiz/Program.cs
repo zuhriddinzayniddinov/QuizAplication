@@ -1,8 +1,12 @@
-using Infrastructure.AppDbContext;
+using Infrastructure;
 using Infrastructure.Repasitory.Questions;
 using Infrastructure.Repasitory.Questions.Repository;
+using Infrastructure.Repasitory.Quizzes;
+using Infrastructure.Repasitory.Quizzes.Repasitory;
 using Service.QuestionService;
 using Service.QuestionService.Serviceis;
+using Service.QuizzesService;
+using Service.QuizzesService.Serviceis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +19,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
+builder.Services.AddScoped<IQuizzesRepasitory, QuizzesRepasitory>();
 builder.Services.AddScoped<IQuestionsServiceis, QuestionsServiceis>();
+builder.Services.AddScoped<IQuizzisServiceis, QuizzisServiceis>();
 
 var app = builder.Build();
 

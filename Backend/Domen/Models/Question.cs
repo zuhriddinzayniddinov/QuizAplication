@@ -15,4 +15,5 @@ public class Question
     public string worngAsnwer1 { get; set; }
     public string worngAsnwer2 { get; set; }
     public string worngAsnwer3 { get; set; }
+    public int QuizId { get; set; }
 }
