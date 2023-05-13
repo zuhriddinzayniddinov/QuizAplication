@@ -27,7 +27,11 @@ namespace Quiz.Controllers
         {
             return await this._questionsServiceis.GetAllAsync();
         }
-
+        [HttpGet("{quizId}")]
+        public async Task<IEnumerable<Question>> Get([FromRoute]int quizId)
+        {
+            return await this._questionsServiceis.GetByQuizIdAsync(quizId);
+        }
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(long id, [FromBody] Question question)
         {

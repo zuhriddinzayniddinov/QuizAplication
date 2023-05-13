@@ -14,6 +14,13 @@ namespace Infrastructure.Repasitory.Questions.Repository
 
         public async Task<Question> CreateAsync(Question question)
         {
+            var quiz = await _appDbContext.Quizzes
+                .Where(q => q.Id == question.QuizId)
+                .FirstOrDefaultAsync();
+            if (quiz == null)
+            {
+                throw new AccessViolationException("Not found Quiz");
+            }
             await _appDbContext.Questions.AddAsync(question);
             await _appDbContext.SaveChangesAsync();
             return question;
@@ -33,6 +40,11 @@ namespace Infrastructure.Repasitory.Questions.Repository
         public async Task<IEnumerable<Question>> GetAllAsync()
         {
             return _appDbContext.Questions;
+        }
+
+        public async Task<IEnumerable<Question>> GetByQuizIdAsync(int quizId)
+        {
+            return await _appDbContext.Questions.Where(q=>q.QuizId == quizId).ToListAsync();
         }
     }
 }

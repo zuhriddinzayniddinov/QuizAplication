@@ -23,13 +23,17 @@ public class QuestionsServiceis:IQuestionsServiceis
 
     public async Task<IEnumerable<Question>> GetAllAsync()
     {
-        var questions = await this._questionRepository.GetAllAsync();
-        return questions;
+        return await this._questionRepository.GetAllAsync();
     }
 
     public async Task<Question> DeleteAsync(Question question)
     {
         return await this._questionRepository.DeleteAsync(question.Id);
+    }
+
+    public async Task<IEnumerable<Question>> GetByQuizIdAsync(int quizId)
+    {
+        return await this._questionRepository.GetByQuizIdAsync(quizId);
     }
 }
 
