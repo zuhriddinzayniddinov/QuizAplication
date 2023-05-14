@@ -1,12 +1,8 @@
 using Infrastructure;
-using Infrastructure.Repasitory.Questions;
-using Infrastructure.Repasitory.Questions.Repository;
-using Infrastructure.Repasitory.Quizzes;
-using Infrastructure.Repasitory.Quizzes.Repasitory;
-using Service.QuestionService;
-using Service.QuestionService.Serviceis;
-using Service.QuizzesService;
-using Service.QuizzesService.Serviceis;
+using Infrastructure.Repositories.Questions;
+using Infrastructure.Repositories.Quizzes;
+using QuizAplication.Application.Services.Questions;
+using QuizAplication.Application.Services.Quizzes;
 
 var builder = WebApplication.CreateBuilder(args);
 

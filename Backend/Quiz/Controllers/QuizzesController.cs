@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Service.QuizzesService;
+using QuizAplication.Application.Services.Quizzes;
+using QuizAplication.Domain.Entities.Quizzes;
 
-namespace Quiz.Controllers
+namespace QuizAplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -15,20 +16,20 @@ namespace Quiz.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Domen.Models.Quiz quiz)
+        public async Task<IActionResult> Post([FromBody] Quiz quiz)
         {
             quiz = await this._quizzisServiceis.CreatAsync(quiz);
             return Ok(quiz);
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Domen.Models.Quiz>> Get()
+        public async Task<IEnumerable<Quiz>> Get()
         {
             return await this._quizzisServiceis.GetAllAsync();
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(long id, [FromBody] Domen.Models.Quiz quiz)
+        public async Task<IActionResult> Put(long id, [FromBody] Quiz quiz)
         {
             if (id != quiz.Id)
                 return BadRequest();

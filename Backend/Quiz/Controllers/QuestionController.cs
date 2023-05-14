@@ -1,8 +1,8 @@
-﻿using Domen.Models;
-using Microsoft.AspNetCore.Mvc;
-using Service.QuestionService;
+﻿using Microsoft.AspNetCore.Mvc;
+using QuizAplication.Application.Services.Questions;
+using QuizAplication.Domain.Entities.Questions;
 
-namespace Quiz.Controllers
+namespace QuizAplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
