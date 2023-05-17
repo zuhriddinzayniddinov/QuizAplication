@@ -1,0 +1,22 @@
+<mat-card>
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <mat-form-field>
+            <input type="name" placeholder="Ism" matInput formControlName="name">
+        </mat-form-field>
+        <mat-form-field>
+            <input type="email" placeholder="Email" matInput formControlName="email">
+        </mat-form-field>
+        <mat-form-field>
+            <input type="password" placeholder="Parolingiz" matInput formControlName="password">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Vazifangiz</mat-label>
+            <mat-select formControlName="role">
+                <mat-option *ngFor="let role of roles" [value]="role.value">
+                    {{role.viewValue}}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+        <button [disabled]="!registerForm.valid" mat-raised-button color="primary">Ro'yxatdan o'tish</button>
+    </form>
+</mat-card>

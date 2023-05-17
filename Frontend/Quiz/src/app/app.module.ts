@@ -9,8 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { QuestionsComponent } from './questions/questions.component';
 import { MatListModule } from '@angular/material/list';
@@ -20,10 +20,17 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { NavbarComponent } from './navbar/navbar.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { QuizzesComponent } from './quizzes/quizzes.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+import {MatSelectModule} from '@angular/material/select'
+import { AuthService } from './auth.service';
+import { AuthInterceptorService } from './auth-interceptor.service';
 
 let routes = [
   {path: 'question', component :QuestionComponent},
   {path: 'question/:quizid', component :QuestionComponent},
+  {path: 'register', component :RegisterComponent},
+  {path: 'login', component :LoginComponent},
   {path: 'questions',component : QuestionsComponent},
   {path: 'quiz',component : QuizComponent},
   {path: '',component:HomeComponent}
@@ -37,7 +44,9 @@ let routes = [
     HomeComponent,
     NavbarComponent,
     QuizComponent,
-    QuizzesComponent
+    QuizzesComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -51,9 +60,16 @@ let routes = [
     MatListModule,
     FormsModule,
     RouterModule.forRoot(routes),
-    MatToolbarModule
+    MatToolbarModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule
   ],
-  providers: [ApiService],
+  providers: [ApiService,AuthService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
