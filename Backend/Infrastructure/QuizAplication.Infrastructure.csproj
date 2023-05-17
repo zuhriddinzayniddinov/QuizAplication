@@ -20,8 +20,4 @@
     <ProjectReference Include="..\Domen\QuizAplication.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Authentication\" />
-  </ItemGroup>
-
 </Project>

@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using QuizAplication.Application.Services.Questions;
-using QuizAplication.Domain.Entities.Questions;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using QuizApplication.Application.Services.Questions;
+using QuizApplication.Domain.Entities.Questions;
 
-namespace QuizAplication.Controllers
+namespace QuizApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -14,25 +15,31 @@ namespace QuizAplication.Controllers
         {
             this._questionsServiceis = questionsServiceis;
         }
-
+        
+        [Authorize(Roles = "Maker,Admin")]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Question question)
         {
-            question = await this._questionsServiceis.CreatAsync(question);
+            question = await this._questionsServiceis.CreateAsync(question);
             return Ok(question);
         }
-
+        
+        [Authorize(Roles = "Worker,Maker,Admin")]
         [HttpGet]
         public async Task<IEnumerable<Question>> Get()
         {
             return await this._questionsServiceis.GetAllAsync();
         }
-        [HttpGet("{quizId}")]
+        
+        [Authorize(Roles = "Worker,Maker,Admin")]
+        [HttpGet("{quizId:int}")]
         public async Task<IEnumerable<Question>> Get([FromRoute]int quizId)
         {
             return await this._questionsServiceis.GetByQuizIdAsync(quizId);
         }
-        [HttpPut("{id}")]
+        
+        [Authorize(Roles = "Maker,Admin")]
+        [HttpPut("{id:long}")]
         public async Task<IActionResult> Put(long id, [FromBody] Question question)
         {
             if (id != question.Id)

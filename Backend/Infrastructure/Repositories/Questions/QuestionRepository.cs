@@ -1,6 +1,6 @@
-﻿using QuizAplication.Domain.Entities.Questions;
+﻿using QuizApplication.Domain.Entities.Questions;
 using Microsoft.EntityFrameworkCore;
-using QuizAplication.Domain.Exceptions;
+using QuizApplication.Domain.Exceptions;
 
 namespace Infrastructure.Repositories.Questions
 {

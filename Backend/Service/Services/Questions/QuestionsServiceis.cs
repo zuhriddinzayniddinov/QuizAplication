@@ -1,7 +1,7 @@
-﻿using QuizAplication.Domain.Entities.Questions;
-using Infrastructure.Repositories.Questions;
+﻿using Infrastructure.Repositories.Questions;
+using QuizApplication.Domain.Entities.Questions;
 
-namespace QuizAplication.Application.Services.Questions;
+namespace QuizApplication.Application.Services.Questions;
 
 public class QuestionsServiceis : IQuestionsServiceis
 {
@@ -11,7 +11,7 @@ public class QuestionsServiceis : IQuestionsServiceis
         _questionRepository = questionRepository;
     }
 
-    public async Task<Question> CreatAsync(Question question)
+    public async Task<Question> CreateAsync(Question question)
     {
         return await _questionRepository.InsertAsync(question);
     }

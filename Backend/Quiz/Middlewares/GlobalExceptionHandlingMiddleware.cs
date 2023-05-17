@@ -2,9 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Text.Json;
-using QuizAplication.Domain.Exceptions;
+using QuizApplication.Domain.Exceptions;
 
-namespace QuizAplication.Api.Middlewares;
+namespace QuizApplication.Api.Middlewares;
 
 public class GlobalExceptionHandlingMiddleware
 {

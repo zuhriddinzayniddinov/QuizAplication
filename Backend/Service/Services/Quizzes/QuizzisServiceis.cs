@@ -1,7 +1,7 @@
-﻿using QuizAplication.Domain.Entities.Quizzes;
-using Infrastructure.Repositories.Quizzes;
+﻿using Infrastructure.Repositories.Quizzes;
+using QuizApplication.Domain.Entities.Quizzes;
 
-namespace QuizAplication.Application.Services.Quizzes
+namespace QuizApplication.Application.Services.Quizzes
 {
     public class QuizzisServiceis : IQuizzisServiceis
     {

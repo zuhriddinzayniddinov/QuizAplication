@@ -1,6 +1,6 @@
-﻿using QuizAplication.Domain.Entities.Quizzes;
+﻿using QuizApplication.Domain.Entities.Quizzes;
 
-namespace QuizAplication.Application.Services.Quizzes
+namespace QuizApplication.Application.Services.Quizzes
 {
     public interface IQuizzisServiceis
     {

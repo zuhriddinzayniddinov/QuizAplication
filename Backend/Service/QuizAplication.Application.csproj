@@ -11,8 +11,4 @@
     <ProjectReference Include="..\Infrastructure\QuizAplication.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DataTransferObjects\Users\" />
-  </ItemGroup>
-
 </Project>

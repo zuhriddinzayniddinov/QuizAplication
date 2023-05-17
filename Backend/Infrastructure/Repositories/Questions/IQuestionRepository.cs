@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using QuizAplication.Domain.Entities.Questions;
+using QuizApplication.Domain.Entities.Questions;
 
 namespace Infrastructure.Repositories.Questions
 {

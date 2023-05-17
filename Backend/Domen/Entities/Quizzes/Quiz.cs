@@ -1,4 +1,4 @@
-﻿namespace QuizAplication.Domain.Entities.Quizzes;
+﻿namespace QuizApplication.Domain.Entities.Quizzes;
 public class Quiz
 {
     public int Id { get; set; }

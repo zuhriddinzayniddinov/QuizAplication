@@ -1,22 +1,41 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using QuizAplication.Application.DataTransferObjects.Authentication;
-using QuizAplication.Domain.Entities.Users;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using QuizApplication.Application.DataTransferObjects.Authentication;
+using QuizApplication.Application.DataTransferObjects.Users;
+using QuizApplication.Application.Services.Authentication;
+using QuizApplication.Application.Services.Users;
 
-namespace QuizAplication.Controllers;
+namespace QuizApplication.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
 public class AccauntController : ControllerBase
 {
-    [HttpPost]
-    public async Task<IActionResult> SignUp([FromBody]User user)
+    private readonly IUserService _userService;
+    private readonly IAuthenticationService _authenticationService;
+    public AccauntController(IUserService userService, IAuthenticationService authenticationService)
     {
-        return Ok(user);
+        _userService = userService;
+        _authenticationService = authenticationService;
     }
 
-    [HttpPost]
-    public async Task<IActionResult> SignIn([FromBody] AuthenticationDto authenticationDto)
+    [AllowAnonymous]
+    [HttpPost("Register")]
+    public async Task<IActionResult> SignUp([FromBody]UserForCreationDto userForCreationDto)
     {
-        return Ok(authenticationDto);
+        var userDto = await this._userService
+                            .CreateUserAsync(userForCreationDto);
+
+        return Ok(userDto);
+    }
+
+    [AllowAnonymous]
+    [HttpPost]
+    public async Task<IActionResult> SignIn([FromBody]AuthenticationDto authenticationDto)
+    {
+        var tokenDto = await this._authenticationService
+                            .LoginAsync(authenticationDto);
+
+        return Ok(tokenDto);
     }
 }

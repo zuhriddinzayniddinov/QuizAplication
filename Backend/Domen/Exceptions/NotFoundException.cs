@@ -1,4 +1,4 @@
-﻿namespace QuizAplication.Domain.Exceptions;
+﻿namespace QuizApplication.Domain.Exceptions;
 
 public class NotFoundException : Exception
 {

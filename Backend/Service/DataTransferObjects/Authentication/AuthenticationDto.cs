@@ -1,5 +1,5 @@
-﻿namespace QuizAplication.Application.DataTransferObjects.Authentication;
+﻿namespace QuizApplication.Application.DataTransferObjects.Authentication;
 
 public record AuthenticationDto(
-     string Email ,
-     string Password);
+     string email ,
+     string password);

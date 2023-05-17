@@ -1,4 +1,4 @@
-﻿namespace QuizAplication.Domain.Entities.Questions;
+﻿namespace QuizApplication.Domain.Entities.Questions;
 
 public class Question
 {

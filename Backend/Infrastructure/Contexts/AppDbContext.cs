@@ -1,6 +1,7 @@
-﻿using QuizAplication.Domain.Entities.Questions;
-using QuizAplication.Domain.Entities.Quizzes;
+﻿using QuizApplication.Domain.Entities.Questions;
+using QuizApplication.Domain.Entities.Quizzes;
 using Microsoft.EntityFrameworkCore;
+using QuizApplication.Domain.Entities.Users;
 
 namespace Infrastructure
 {
@@ -12,9 +13,6 @@ namespace Infrastructure
         }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Quiz> Quizzes { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseInMemoryDatabase("temploye");
-        }
+        public DbSet<User> Users { get; set; }
     }
 }

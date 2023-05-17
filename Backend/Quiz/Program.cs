@@ -1,10 +1,9 @@
-using Infrastructure;
-using Infrastructure.Repositories.Questions;
-using Infrastructure.Repositories.Quizzes;
-using QuizAplication.Application.Services.Questions;
-using QuizAplication.Application.Services.Quizzes;
+using QuizApplication.Api.Extensions;
+using QuizApplication.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//builder.AddLogging(builder.Configuration);
 
 // Add services to the container.
 
@@ -13,11 +12,12 @@ builder.Services.AddControllers();
 builder.Services.AddCors();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<AppDbContext>();
-builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
-builder.Services.AddScoped<IQuizzesRepasitory, QuizzesRepasitory>();
-builder.Services.AddScoped<IQuestionsServiceis, QuestionsServiceis>();
-builder.Services.AddScoped<IQuizzisServiceis, QuizzisServiceis>();
+
+builder.Services
+    .AddDbContexts(builder.Configuration)
+    .AddAuthentication(builder.Configuration)
+    .AddInfrastructure()
+    .AddApplication();
 
 var app = builder.Build();
 
@@ -36,7 +36,11 @@ app.UseCors(builder => builder
                     .AllowAnyMethod()
                     .AllowAnyHeader());
 
+app.UseAuthentication();
+
 app.UseAuthorization();
+
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 app.MapControllers();
 

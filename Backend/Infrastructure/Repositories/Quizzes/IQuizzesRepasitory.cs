@@ -1,4 +1,4 @@
-﻿using QuizAplication.Domain.Entities.Quizzes;
+﻿using QuizApplication.Domain.Entities.Quizzes;
 
 namespace Infrastructure.Repositories.Quizzes;
 
