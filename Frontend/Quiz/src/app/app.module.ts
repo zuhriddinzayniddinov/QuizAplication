@@ -33,6 +33,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ScoreDialogComponent } from './score-dialog/score-dialog.component';
 import { HomeQuizzesComponent } from './home-quizzes/home-quizzes.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 let routes = [
   {path: 'question', component :QuestionComponent},
@@ -44,7 +45,8 @@ let routes = [
   {path: 'login', component :LoginComponent},
   {path: 'play',component : PlayComponent},
   {path: 'playquiz/:quizid',component : PlayQuizComponent},
-  {path: '',component:HomeComponent}
+  {path: '',component:HomeComponent},
+  {path: '**',component:NotFoundComponent}
 ]
 
 @NgModule({
@@ -60,7 +62,8 @@ let routes = [
     LoginComponent,
     PlayComponent,
     PlayQuizComponent,
-    HomeQuizzesComponent
+    HomeQuizzesComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
