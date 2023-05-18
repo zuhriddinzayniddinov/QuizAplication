@@ -75,6 +75,10 @@ export class ApiService {
             });
     }
 
+    getAllQuizzes(){
+        return this.http.get('https://localhost:44315/api/Quizzes/All');
+    }
+
     putQuiz(quiz: Quiz) {
         this.http.put('https://localhost:44315/api/quizzes/' + quiz.id, quiz)
             .subscribe(response => {

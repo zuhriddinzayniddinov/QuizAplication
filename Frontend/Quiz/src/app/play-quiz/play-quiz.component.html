@@ -1,0 +1,29 @@
+<mat-card>
+    <mat-card-content>
+        <mat-accordion class="example-headers-align">
+            <mat-expansion-panel *ngFor="let question of questions;index as i" [expanded]="step === i"
+                (opened)="setStep(i);" hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{question.text}}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="question.selectedQuestion">
+                    <mat-radio-button class="example-radio-button" *ngFor="let Asnwer of question.answers" [value]="Asnwer.value">
+                        {{Asnwer.display}}
+                    </mat-radio-button>
+                </mat-radio-group>
+
+                <mat-action-row>
+                    <button *ngIf="i!=0" mat-button color="warn" (click)="prevStep()">Oldingi</button>
+                    <button *ngIf="i < questions.length -1" mat-button color="primary"
+                        (click)="nextStep()">Kiyingi</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </mat-card-content>
+    <mat-card-actions>
+        <button style="flex: auto;" mat-button color="primary" (click)="finishTest()">Tugatish</button>
+    </mat-card-actions>
+</mat-card>

@@ -1,10 +1,9 @@
 export class Question {
-    constructor() {}
-    id:Number = 0;
-    text:String = '';
-    correctAsnwer:String = '';
-    worngAsnwer1:String = '';
-    worngAsnwer2:String = '';
-    worngAsnwer3:String = '';
-    quizid:number = 0;
-}
+    id: number = 0;
+    text: string = '';
+    correctAnswer: string = '';
+    wrongAnswer1: string = '';
+    wrongAnswer2: string = '';
+    wrongAnswer3: string = '';
+    quizid: number = 0;
+  }

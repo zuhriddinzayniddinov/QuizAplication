@@ -1,5 +1,7 @@
 <mat-toolbar>
     <button mat-button routerLink="/">Asosiy</button>
+    <button *ngIf="auth.role" mat-button routerLink="/homequizzes">Test tuzish</button>
+    <button mat-button routerLink="/play">Test ishlash</button>
     <span style="flex: auto;"></span>
     <div *ngIf="!auth.isAuth">
         <button mat-button routerLink="/login">Kirish</button>

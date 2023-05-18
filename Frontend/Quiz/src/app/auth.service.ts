@@ -13,6 +13,7 @@ export class AuthService {
     this.http.post<any>('https://localhost:44315/api/Accaunt', credations)
       .subscribe(response => {
         localStorage.setItem('name',response.name);
+        localStorage.setItem('role',response.role);
         localStorage.setItem('accessToken', response.accessToken);
         localStorage.setItem('expireDate', response.expireDate);
       });
@@ -33,6 +34,12 @@ export class AuthService {
 
   logout() {
     localStorage.clear();
+  }
+
+  get role(){
+    let userRole = localStorage.getItem('role');
+
+    return userRole == 'Admin' || userRole == 'Maker';
   }
 
   get isAuth(){

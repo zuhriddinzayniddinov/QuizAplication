@@ -25,14 +25,25 @@ import { LoginComponent } from './login/login.component';
 import {MatSelectModule} from '@angular/material/select'
 import { AuthService } from './auth.service';
 import { AuthInterceptorService } from './auth-interceptor.service';
+import { PlayComponent } from './play/play.component';
+import { PlayQuizComponent } from './play-quiz/play-quiz.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatDialogModule} from '@angular/material/dialog';
+import { ScoreDialogComponent } from './score-dialog/score-dialog.component';
+import { HomeQuizzesComponent } from './home-quizzes/home-quizzes.component';
 
 let routes = [
   {path: 'question', component :QuestionComponent},
+  {path: 'homequizzes', component :HomeQuizzesComponent},
   {path: 'question/:quizid', component :QuestionComponent},
-  {path: 'register', component :RegisterComponent},
-  {path: 'login', component :LoginComponent},
   {path: 'questions',component : QuestionsComponent},
   {path: 'quiz',component : QuizComponent},
+  {path: 'register', component :RegisterComponent},
+  {path: 'login', component :LoginComponent},
+  {path: 'play',component : PlayComponent},
+  {path: 'playquiz/:quizid',component : PlayQuizComponent},
   {path: '',component:HomeComponent}
 ]
 
@@ -46,7 +57,10 @@ let routes = [
     QuizComponent,
     QuizzesComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    PlayComponent,
+    PlayQuizComponent,
+    HomeQuizzesComponent
   ],
   imports: [
     BrowserModule,
@@ -63,13 +77,17 @@ let routes = [
     MatToolbarModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatExpansionModule,
+    MatChipsModule,
+    MatRadioModule,
+    MatDialogModule
   ],
   providers: [ApiService,AuthService,{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptorService,
     multi: true
   }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

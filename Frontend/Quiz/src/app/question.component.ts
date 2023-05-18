@@ -33,6 +33,8 @@ export class QuestionComponent {
             this.apiSvc.putQuestion(this.question);
         else
             this.apiSvc.postQuestion(this.question);
+
+        this.resetQuesttion();
     }
 
     resetQuesttion() {
