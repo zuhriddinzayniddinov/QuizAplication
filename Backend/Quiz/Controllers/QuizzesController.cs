@@ -7,6 +7,7 @@ using QuizApplication.Domain.Entities.Quizzes;
 
 namespace QuizApplication.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class QuizzesController : ControllerBase
@@ -17,7 +18,7 @@ namespace QuizApplication.Controllers
         {
             _quizzisServiceis = quizzisServiceis;
         }
-        [AllowAnonymous]
+
         [Authorize(Roles = "Maker,Admin")]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Quiz quiz)
@@ -27,13 +28,19 @@ namespace QuizApplication.Controllers
             return Ok(quiz);
         }
 
-        [AllowAnonymous]
+
+        [HttpGet("All")]
+        public async Task<IEnumerable<Quiz>> GetAll()
+        {
+            return await this._quizzisServiceis.GetAllAsync();
+        }
+
         [HttpGet]
         public async Task<IEnumerable<Quiz>> Get()
         {
             return await this._quizzisServiceis.GetAllAsync();
         }
-        
+
         [Authorize(Roles= "Maker,Admin")]
         [HttpPut("{id:long}")]
         public async Task<IActionResult> Put(long id, [FromBody] Quiz quiz)

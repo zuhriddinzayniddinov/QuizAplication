@@ -57,6 +57,7 @@ public class AuthenticationService : IAuthenticationService
 
         return new TokenDto(
             name: updatedUser.Name,
+            role:updatedUser.Role.ToString(),
             accessToken: new JwtSecurityTokenHandler().WriteToken(accessToken),
             expireDate: accessToken.ValidTo);
     }

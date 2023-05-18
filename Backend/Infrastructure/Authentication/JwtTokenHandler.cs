@@ -23,7 +23,7 @@ public class JwtTokenHandler : IJwtTokenHandler
         {
             new Claim(nameof(user.Id), user.Id.ToString()),
             new Claim(nameof(user.Email), user.Email),
-            new Claim(nameof(user.Role), Enum.GetName<UserRole>(user.Role))
+            new Claim("role", Enum.GetName<UserRole>(user.Role))
         };
 
         var authSigningKey = new SymmetricSecurityKey(

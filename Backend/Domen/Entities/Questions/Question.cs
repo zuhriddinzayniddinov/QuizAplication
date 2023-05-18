@@ -4,9 +4,9 @@ public class Question
 {
     public long Id { get; set; }
     public string Text { get; set; }
-    public string CorrectAsnwer { get; set; }
-    public string WorngAsnwer1 { get; set; }
-    public string WorngAsnwer2 { get; set; }
-    public string WorngAsnwer3 { get; set; }
+    public string CorrectAnswer { get; set; }
+    public string WrongAnswer1 { get; set; }
+    public string WrongAnswer2 { get; set; }
+    public string WrongAnswer3 { get; set; }
     public int QuizId { get; set; }
 }
