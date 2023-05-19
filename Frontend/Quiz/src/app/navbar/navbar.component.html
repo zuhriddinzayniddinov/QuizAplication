@@ -9,6 +9,6 @@
     </div>
     <div *ngIf="auth.isAuth">
         <span>Foydalanuvchi ismi: {{auth.Name}}</span>
-        <button mat-button (click)="logout()">Chiqish</button>
+        <button mat-button (click)="logout()" routerLink="/">Chiqish</button>
     </div>
 </mat-toolbar>
