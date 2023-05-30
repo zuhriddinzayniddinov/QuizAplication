@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Subject } from 'rxjs';
 import { Question } from './question';
 import { Quiz } from './quiz';
+import { UserMorify } from './admin-edit-user/user';
 
 @Injectable()
 export class ApiService {
@@ -17,7 +18,7 @@ export class ApiService {
         return this.addQuestion.asObservable();
     }
 
-    addNewQuestion(question:Question) {
+    addNewQuestion(question: Question) {
         return this.addQuestion.next(question);
     }
 
@@ -41,7 +42,7 @@ export class ApiService {
         return this.addQuiz.asObservable();
     }
 
-    addNewQuiz(quiz:Quiz) {
+    addNewQuiz(quiz: Quiz) {
         return this.addQuiz.next(quiz);
     }
 
@@ -52,6 +53,7 @@ export class ApiService {
                 console.log(response);
             });
     }
+
     putQuestion(question: Question) {
         this.http.put('https://localhost:44315/api/Question/' + question.id, question)
             .subscribe(response => {
@@ -59,8 +61,8 @@ export class ApiService {
             });
     }
 
-    getQuestions(quizId:number) {
-        return this.http.get('https://localhost:44315/api/Question/'+quizId);
+    getQuestions(quizId: number) {
+        return this.http.get('https://localhost:44315/api/Question/' + quizId);
     }
 
     getQuizzes() {
@@ -75,8 +77,23 @@ export class ApiService {
             });
     }
 
-    getAllQuizzes(){
+    getAllQuizzes() {
         return this.http.get('https://localhost:44315/api/Quizzes/All');
+    }
+
+    getAllUsers() {
+        return this.http.get('https://localhost:44315/api/Admin');
+    }
+
+    putUser(userMorify: UserMorify) {
+        this.http.put('https://localhost:44315/api/Admin', userMorify)
+            .subscribe(response => {
+                console.log(response);
+            });
+    }
+
+    getByIdUser(userId: Number) {
+        return this.http.get('https://localhost:44315/api/Admin/' + userId);
     }
 
     putQuiz(quiz: Quiz) {

@@ -1,19 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { User } from './user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  private addUser = new Subject<User>();
   constructor(private http: HttpClient, private router: Router) { }
 
   login(credations: any) {
-    this.http.post<any>('https://localhost:44315/api/Accaunt', credations)
+    this.http.post<any>('https://localhost:44315/api/Account', credations)
       .subscribe(response => {
-        localStorage.setItem('name',response.name);
-        localStorage.setItem('role',response.role);
+        localStorage.setItem('name', response.name);
+        localStorage.setItem('role', response.role);
         localStorage.setItem('accessToken', response.accessToken);
         localStorage.setItem('expireDate', response.expireDate);
       });
@@ -24,25 +27,32 @@ export class AuthService {
     return localStorage.getItem('name');
   }
 
-  register(credations: any) {
-    this.http.post<any>('https://localhost:44315/api/Accaunt/Register', credations)
+  getNewUser() {
+    return this.addUser.asObservable();
+  }
+
+  addNewUser(user: User) {
+    return this.addUser.next(user);
+  }
+
+  register(credations: User) {
+    this.http.post<any>('https://localhost:44315/api/Account/Register', credations)
       .subscribe(response => {
-        console.log(response);
+        this.addNewUser(response)
       });
-    this.router.navigate(['login']);
   }
 
   logout() {
     localStorage.clear();
   }
 
-  get role(){
+  get role() {
     let userRole = localStorage.getItem('role');
 
     return userRole == 'Admin' || userRole == 'Maker';
   }
 
-  get isAuth(){
+  get isAuth() {
     return !!localStorage.getItem('accessToken');
   }
 }

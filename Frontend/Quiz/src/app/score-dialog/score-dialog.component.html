@@ -1,6 +1,14 @@
-<h1>Sizning natija</h1>
-<h1>{{data.correctAnswer}}/{{data.totalQuestions}}</h1>
-<div mat-dialog-actions>
-    <button mat-button color="primary" >Qayta ishlash</button>
-    <button mat-button cdkFocusInitial>Tushinarli</button>
+<div class="modal-content">
+    <div class="modal-header">
+        <h1 class="modal-title">Sizning natija</h1>
+    </div>
+    <div class="modal-body">
+        <p>{{data.correctAnswer}}/{{data.totalQuestions}}</p>
+    </div>
+    <form action="">
+        <div class="modal-footer">
+            <button class="btn btn-danger" (click)="reyta()">Qayta ishlash</button>
+            <button class="btn btn-primary" (click)="play()">Sarlavhalar</button>
+        </div>
+    </form>
 </div>

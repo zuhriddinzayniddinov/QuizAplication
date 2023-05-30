@@ -1,10 +1,14 @@
-<mat-card>
-    <mat-card-content>
-        <mat-list *ngFor="let question of questions">
-            <mat-list-item id="clickItem" (click)="apiSvc.selectQuestion(question)"> {{question.text}}</mat-list-item>
-        </mat-list>
-    </mat-card-content>
-    <mat-card-actions>
-
-    </mat-card-actions>
-</mat-card>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">№</th>
+            <th scope="col">Savollar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let question of questions; index as i">
+            <th id="clickItem" (click)="apiSvc.selectQuestion(question)" scope="row">{{i+1}}</th>
+            <td id="clickItem" (click)="apiSvc.selectQuestion(question)">{{question.text}}</td>
+        </tr>
+    </tbody>
+</table>
