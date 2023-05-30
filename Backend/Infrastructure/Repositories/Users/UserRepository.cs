@@ -31,7 +31,7 @@ public class UserRepository : IUserRepository
         return await this._appDbContext
             .Users.Where(u => u.Id == id)
             .FirstOrDefaultAsync()
-            ?? throw new NotFoundException("USer not found");
+            ?? throw new NotFoundException("User not found");
     }
 
     public async Task<User> UpdateAsync(User user)

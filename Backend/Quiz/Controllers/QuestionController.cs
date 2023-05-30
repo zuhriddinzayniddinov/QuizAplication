@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using QuizApplication.Application.DataTransferObjects.Questions;
 using QuizApplication.Application.Services.Questions;
-using QuizApplication.Domain.Entities.Questions;
 
 namespace QuizApplication.Controllers
 {
@@ -10,43 +10,44 @@ namespace QuizApplication.Controllers
     [ApiController]
     public class QuestionController : ControllerBase
     {
-        private readonly IQuestionsServiceis _questionsServiceis;
+        private readonly IQuestionsServices _questionsServices;
 
-        public QuestionController(IQuestionsServiceis questionsServiceis)
+        public QuestionController(IQuestionsServices questionsServices)
         {
-            this._questionsServiceis = questionsServiceis;
+            this._questionsServices = questionsServices;
         }
 
         [Authorize(Roles = "Maker,Admin")]
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Question question)
+        public async Task<IActionResult> Post([FromBody] QuestionDto questionDto)
         {
-            question = await this._questionsServiceis.CreateAsync(question);
-            return Ok(question);
+            questionDto = await this._questionsServices.CreateAsync(questionDto);
+
+            return Ok(questionDto);
         }
 
         [Authorize(Roles = "Worker,Maker,Admin")]
         [HttpGet]
-        public async Task<IEnumerable<Question>> Get()
+        public IQueryable<QuestionDto> Get()
         {
-            return await this._questionsServiceis.GetAllAsync();
+            return this._questionsServices.GetAllAsync();
         }
 
         [Authorize(Roles = "Worker,Maker,Admin")]
         [HttpGet("{quizId:int}")]
-        public async Task<IEnumerable<Question>> Get([FromRoute]int quizId)
+        public IQueryable<QuestionDto> Get([FromRoute]int quizId)
         {
-            return await this._questionsServiceis.GetByQuizIdAsync(quizId);
+            return this._questionsServices.GetByQuizIdAsync(quizId);
         }
 
         [Authorize(Roles = "Maker,Admin")]
         [HttpPut("{id:long}")]
-        public async Task<IActionResult> Put(long id, [FromBody] Question question)
+        public async Task<IActionResult> Put(long id, [FromBody] QuestionDto questionDto)
         {
-            if (id != question.Id)
+            if (id != questionDto.id)
                 return BadRequest();
-            question = await this._questionsServiceis.UpdateAsync(question);
-            return Ok(question);
+            questionDto = await this._questionsServices.UpdateAsync(questionDto);
+            return Ok(questionDto);
         }
     }
 }

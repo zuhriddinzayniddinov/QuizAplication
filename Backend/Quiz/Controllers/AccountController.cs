@@ -9,11 +9,11 @@ namespace QuizApplication.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class AccauntController : ControllerBase
+public class AccountController : ControllerBase
 {
     private readonly IUserService _userService;
     private readonly IAuthenticationService _authenticationService;
-    public AccauntController(IUserService userService, IAuthenticationService authenticationService)
+    public AccountController(IUserService userService, IAuthenticationService authenticationService)
     {
         _userService = userService;
         _authenticationService = authenticationService;

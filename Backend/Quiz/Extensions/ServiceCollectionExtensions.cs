@@ -2,9 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 /*using Serilog;*/
 using System.Text;
 using Infrastructure.Repositories.Questions;
@@ -49,8 +47,8 @@ internal static class ServiceCollectionExtensions
         {
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
-            services.AddScoped<IQuizzisServiceis, QuizzisServiceis>();
-            services.AddScoped<IQuestionsServiceis,QuestionsServiceis>();
+            services.AddScoped<IQuizzesServices, QuizzesServices>();
+            services.AddScoped<IQuestionsServices,QuestionsServices>();
             services.AddHttpContextAccessor();
 
             return services;
@@ -61,7 +59,7 @@ internal static class ServiceCollectionExtensions
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddTransient<IJwtTokenHandler, JwtTokenHandler>();
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
-            services.AddScoped<IQuizzesRepasitory,QuizzesRepasitory>();
+            services.AddScoped<IQuizzesRepository,QuizzesRepository>();
             services.AddScoped<IQuestionRepository,QuestionRepository>();
 
             return services;
@@ -98,7 +96,7 @@ internal static class ServiceCollectionExtensions
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = configuration["JwtSettings:Issuer"],
                     IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(configuration["JwtSettings:SecretKey"])),
+                        Encoding.UTF8.GetBytes(configuration["JwtSettings:SecretKey"]!)),
                     ClockSkew = TimeSpan.Zero
                 };
             });
@@ -110,7 +108,7 @@ internal static class ServiceCollectionExtensions
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AloShop.Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "QuizApplication.Api", Version = "v1" });
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {

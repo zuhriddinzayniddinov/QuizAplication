@@ -19,9 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domen\QuizAplication.Domain.csproj" />
-    <ProjectReference Include="..\Infrastructure\QuizAplication.Infrastructure.csproj" />
-    <ProjectReference Include="..\Service\QuizAplication.Application.csproj" />
+    <ProjectReference Include="..\Domen\QuizApplication.Domain.csproj" />
+    <ProjectReference Include="..\Infrastructure\QuizApplication.Infrastructure.csproj" />
+    <ProjectReference Include="..\Service\QuizApplication.Application.csproj" />
   </ItemGroup>
 
 </Project>

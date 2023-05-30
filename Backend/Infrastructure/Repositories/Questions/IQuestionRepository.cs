@@ -12,8 +12,8 @@ namespace Infrastructure.Repositories.Questions
         Task<Question> InsertAsync(Question question);
         Task<Question> UpdateAsync(Question question);
         Task<Question> DeleteAsync(long id);
-        Task<IEnumerable<Question>> SelectAllAsync();
-        Task<IEnumerable<Question>> SelectByQuizIdAsync(int quizId);
+        IQueryable<Question> SelectAll();
+        IQueryable<Question> SelectByQuizId(int quizId);
         Task<int> SaveChangesAsync();
     }
 }

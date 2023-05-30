@@ -1,7 +1,6 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Versioning;
+using QuizApplication.Application.DataTransferObjects.Quizzes;
 using QuizApplication.Application.Services.Quizzes;
 using QuizApplication.Domain.Entities.Quizzes;
 
@@ -12,43 +11,63 @@ namespace QuizApplication.Controllers
     [ApiController]
     public class QuizzesController : ControllerBase
     {
-        private readonly IQuizzisServiceis _quizzisServiceis;
+        private readonly IQuizzesServices _quizzesServices;
 
-        public QuizzesController(IQuizzisServiceis quizzisServiceis)
+        public QuizzesController(IQuizzesServices quizzesServices)
         {
-            _quizzisServiceis = quizzisServiceis;
+            _quizzesServices = quizzesServices;
         }
 
         [Authorize(Roles = "Maker,Admin")]
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Quiz quiz)
+        public async Task<IActionResult> Post([FromBody] QuizDto quizDto)
         {
-            var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            quiz = await this._quizzisServiceis.CreatAsync(quiz);
-            return Ok(quiz);
-        }
+            var userId = HttpContext
+                                .User
+                                .Claims
+                                .Where(c =>
+                                    c.Type == "Id")
+                                .Select(c =>
+                                    int.Parse(c.Value))
+                                .First();
 
+            quizDto.userId = userId;
+
+            quizDto = await this._quizzesServices.CreateAsync(quizDto);
+
+            return Ok(quizDto);
+        }
 
         [HttpGet("All")]
-        public async Task<IEnumerable<Quiz>> GetAll()
+        public async Task<IQueryable<QuizDto>> GetAll()
         {
-            return await this._quizzisServiceis.GetAllAsync();
+            return await this._quizzesServices.GetAllAsync();
         }
 
+        [Authorize(Roles = "Maker,Admin")]
         [HttpGet]
-        public async Task<IEnumerable<Quiz>> Get()
+        public async Task<IEnumerable<QuizDto>> Get()
         {
-            return await this._quizzisServiceis.GetAllAsync();
+            var userId = HttpContext
+                                .User
+                                .Claims
+                                .Where(c =>
+                                    c.Type == "Id")
+                                .Select(c =>
+                                    int.Parse(c.Value))
+                                .First();
+
+            return await this._quizzesServices.GetByUserIdAsync(userId);
         }
 
         [Authorize(Roles= "Maker,Admin")]
         [HttpPut("{id:long}")]
-        public async Task<IActionResult> Put(long id, [FromBody] Quiz quiz)
+        public async Task<IActionResult> Put(long id, [FromBody]QuizDto quizDto)
         {
-            if (id != quiz.Id)
+            if (id != quizDto.id)
                 return BadRequest();
-            quiz = await this._quizzisServiceis.UpdateAsync(quiz);
-            return Ok(quiz);
+            quizDto = await this._quizzesServices.UpdateAsync(quizDto);
+            return Ok(quizDto);
         }
     }
 }

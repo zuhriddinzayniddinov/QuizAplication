@@ -19,6 +19,12 @@ namespace Infrastructure.Repositories.Questions
                 .Where(q => q.Id == question.QuizId)
                 .FirstOrDefaultAsync()
                        ?? throw new NotFoundException("Not found Quiz");
+
+            foreach (var answer in question.Answers)
+            {
+                await this._appDbContext.Answers.AddAsync(answer);
+            }
+
             await _appDbContext.Questions.AddAsync(question);
             await this.SaveChangesAsync();
             return question;
@@ -26,9 +32,18 @@ namespace Infrastructure.Repositories.Questions
 
         public async Task<Question> UpdateAsync(Question question)
         {
-            _appDbContext.Questions.Entry(question).State
-                = EntityState.Modified;
+            this._appDbContext.Questions.Entry(question).State = EntityState.Modified;
+
+            List<Answer> answers = new();
+
+            foreach (var answer in question.Answers)
+            {
+                answers.Add(answer);
+                this._appDbContext.Answers.Entry(answer).State = EntityState.Modified;
+            }
+
             await this.SaveChangesAsync();
+
             return question;
         }
 
@@ -38,20 +53,46 @@ namespace Infrastructure.Repositories.Questions
                 .Where(q => q.Id == id)
                 .FirstOrDefaultAsync()
                            ?? throw new NotFoundException("Not found question");
+
+            foreach (var answer in question.Answers)
+            {
+                this._appDbContext.Answers.Remove(answer);
+            }
+
             this._appDbContext.Questions.Remove(question);
+
+            await this.SaveChangesAsync();
+
             return question;
 
         }
-        public async Task<IEnumerable<Question>> SelectAllAsync()
+        public IQueryable<Question> SelectAll()
         {
-            return _appDbContext.Questions;
+            var questions = this._appDbContext.Questions;
+
+            foreach (var question in questions)
+            {
+                question.Answers = this._appDbContext.Answers
+                    .Where(a => a.QuestionId == question.Id)
+                    .Select(a => a).ToList();
+            }
+            
+            return questions;
         }
 
-        public async Task<IEnumerable<Question>> SelectByQuizIdAsync(int quizId)
+        public  IQueryable<Question> SelectByQuizId(int quizId)
         {
-            return await _appDbContext.Questions
-                .Where(q => q.QuizId == quizId)
-                .ToListAsync();
+            var questions = _appDbContext.Questions
+                .Where(q => q.QuizId == quizId);
+
+            foreach (var question in questions)
+            {
+                question.Answers = this._appDbContext.Answers
+                    .Where(a => a.QuestionId == question.Id)
+                    .Select(a => a).ToList();
+            }
+
+            return questions;
         }
 
         public Task<int> SaveChangesAsync()

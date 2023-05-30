@@ -1,4 +1,4 @@
-﻿namespace QuizAplication.Domain.Entities.Permissions;
+﻿namespace QuizApplication.Domain.Entities.Permissions;
 
 public class Permission
 {

@@ -1,12 +1,25 @@
-﻿namespace QuizApplication.Domain.Entities.Questions;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+using QuizApplication.Domain.Entities.Quizzes;
+
+namespace QuizApplication.Domain.Entities.Questions;
 
 public class Question
 {
-    public long Id { get; set; }
+    [Key]
+    public int Id { get; set; }
+    [MinLength(5)]
+    [MaxLength(150)]
     public string Text { get; set; }
-    public string CorrectAnswer { get; set; }
-    public string WrongAnswer1 { get; set; }
-    public string WrongAnswer2 { get; set; }
-    public string WrongAnswer3 { get; set; }
+    public Guid CorrectAnswerGuid { get; set; }
+    [Required]
+    [ForeignKey("Quiz")]
     public int QuizId { get; set; }
+    public virtual ICollection<Answer> Answers { get; set; }
+/*    [JsonIgnore]
+    [Timestamp]
+    public byte[] Timestamp { get; set; }*/
+    [JsonIgnore]
+    public Quiz Quiz { get; set; }
 }

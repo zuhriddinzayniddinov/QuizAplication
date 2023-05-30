@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="DataTransferObjects\Users\**" />
+    <EmbeddedResource Remove="DataTransferObjects\Users\**" />
+    <None Remove="DataTransferObjects\Users\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domen\QuizApplication.Domain.csproj" />
+    <ProjectReference Include="..\Infrastructure\QuizApplication.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

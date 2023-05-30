@@ -1,5 +1,6 @@
 ﻿using QuizApplication.Application.DataTransferObjects.Users;
 using QuizApplication.Domain.Entities.Users;
+using QuizApplication.Domain.Enums;
 using QuizApplication.Infrastructure.Authentication;
 using QuizApplication.Infrastructure.Repositories.Users;
 
@@ -28,7 +29,7 @@ public class UserService : IUserService
         var salt = Guid.NewGuid()
                         .ToString();
 
-        var passwordHesh =
+        var passwordHash =
             this._passwordHasher
                 .Encrypt(
                     userForCreationDto.Password,
@@ -39,7 +40,7 @@ public class UserService : IUserService
             Name = userForCreationDto.name,
             Email = userForCreationDto.email,
             Salt = salt,
-            PasswordHash = passwordHesh,
+            PasswordHash = passwordHash,
             Role = userForCreationDto.role
         };
 
@@ -58,9 +59,15 @@ public class UserService : IUserService
         return UserToDto(user);
     }
 
-    public Task<UserDto> ModifyUserAsync(UserForModificationDto userForModificationDto)
+    public async Task<UserDto> ModifyUserAsync(UserForModificationDto userForModificationDto)
     {
-        throw new NotImplementedException();
+        var user = await this._userRepository.SelectByIdAsync(userForModificationDto.id);
+
+        user.Role = userForModificationDto.role;
+
+        user = await this._userRepository.UpdateAsync(user);
+
+        return UserToDto(user);
     }
 
     public Task<UserDto> RemoveUserAsync(int userId)
