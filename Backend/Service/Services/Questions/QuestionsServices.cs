@@ -17,7 +17,7 @@ public class QuestionsServices : IQuestionsServices
         return MapQuestion(
             await _questionRepository
                 .InsertAsync(
-                    this.MapQuestion(questionDto)));
+                    MapQuestion(questionDto)));
     }
 
     public async Task<QuestionDto> UpdateAsync(QuestionDto questionDto)
@@ -25,7 +25,7 @@ public class QuestionsServices : IQuestionsServices
         return MapQuestion(
             await _questionRepository
                 .UpdateAsync(
-                    this.MapQuestion(questionDto)));
+                    MapQuestion(questionDto)));
     }
 
     public IQueryable<QuestionDto> GetAllAsync()
@@ -97,7 +97,7 @@ public class QuestionsServices : IQuestionsServices
                 answerGuid: answers[3].Id));
     }
 
-    private Question MapQuestion(QuestionDto questionDto)
+    private static Question MapQuestion(QuestionDto questionDto)
     {
         var question = new Question
         {

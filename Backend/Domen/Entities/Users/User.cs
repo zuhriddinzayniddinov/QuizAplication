@@ -9,7 +9,7 @@ public class User
 {
     [Key]
     public int Id { get; set; }
-    [MinLength(3)]
+    [MinLength(2)]
     [MaxLength(20)]
     public string Name { get; set; }
     [Required]
@@ -19,7 +19,5 @@ public class User
     public bool Confirmed { get; set; } = true;
     public string PasswordHash { get; set; }
     public UserRole Role { get; set; } = UserRole.Worker;
-    [JsonIgnore]
-    public ICollection<Quiz> Quizs { get; set; }
 }
 

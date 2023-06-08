@@ -19,12 +19,16 @@ public class ExamRepository : IExamRepository
     {
         await this._appDbContext.Exams.AddAsync(exam);
 
+        await SaveChangesAsync();
+
         var questionIds = this._appDbContext.Questions.Where(q => q.QuizId == exam.QuizId).Select(q => q.Id);
 
         var temp = new List<ExamQuestion>
         {
             Capacity = 30
         };
+
+        int count = 0;
 
         foreach (var question in questionIds)
         {
@@ -33,6 +37,9 @@ public class ExamRepository : IExamRepository
                 ExamId = exam.Id,
                 QuestionId = question
             });
+
+            if (++count >= 30)
+                break;
         }
 
         foreach (var tem in temp)

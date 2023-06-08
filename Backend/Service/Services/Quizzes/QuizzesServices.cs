@@ -44,7 +44,7 @@ namespace QuizApplication.Application.Services.Quizzes
             return MapQuiz(quizDto);
         }
 
-        private Quiz MapQuiz(QuizDto quizDto)
+        private static Quiz MapQuiz(QuizDto quizDto)
         {
             return new Quiz
             {
@@ -54,7 +54,7 @@ namespace QuizApplication.Application.Services.Quizzes
             };
         }
 
-        private QuizDto MapQuiz(Quiz quiz)
+        private static QuizDto MapQuiz(Quiz quiz)
         {
             return new QuizDto(
                 quiz.Id,

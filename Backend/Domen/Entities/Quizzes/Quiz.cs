@@ -12,8 +12,4 @@ public class Quiz
     public string Title { get; set; }
     [ForeignKey("User")]
     public int UserId { get; set; }
-    [JsonIgnore]
-    public User User { get; set; }
-    [JsonIgnore]
-    public ICollection<Question> Questions { get; set; }
 }

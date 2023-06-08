@@ -1,9 +1,7 @@
 ﻿using QuizApplication.Application.DataTransferObjects.Exams;
 using QuizApplication.Application.DataTransferObjects.Questions;
-using QuizApplication.Application.Services.Questions;
 using QuizApplication.Domain.Entities.ExamQuestions;
 using QuizApplication.Domain.Entities.Exams;
-using QuizApplication.Domain.Entities.Questions;
 using QuizApplication.Infrastructure.Repositories.Exams;
 using QuizApplication.Infrastructure.Repositories.Questions;
 

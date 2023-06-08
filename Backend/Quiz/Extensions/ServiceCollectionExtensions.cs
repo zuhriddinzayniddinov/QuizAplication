@@ -2,7 +2,7 @@
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-/*using Serilog;*/
+using Serilog;
 using System.Text;
 using QuizApplication.Application.Services.Authentication;
 using QuizApplication.Application.Services.Exams;
@@ -25,7 +25,7 @@ internal static class ServiceCollectionExtensions
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            //var connectionString = configuration.GetConnectionString("SqlServer");
+            var connectionString = configuration.GetConnectionString("SqlServer");
 
             services.Configure<JwtOption>(configuration
                 .GetSection("JwtSettings"));
@@ -34,12 +34,12 @@ internal static class ServiceCollectionExtensions
 
             services.AddDbContextPool<AppDbContext>(options =>
             {
-                options.UseInMemoryDatabase("Temploy");
+                /*options.UseInMemoryDatabase("Temploy");*/
 
-                /*options.UseSqlServer(connectionString, sqlServerOptions =>
+                options.UseSqlServer(connectionString, sqlServerOptions =>
                 {
                     sqlServerOptions.EnableRetryOnFailure();
-                });*/
+                });
             });
 
             return services;
@@ -140,18 +140,18 @@ internal static class ServiceCollectionExtensions
             });
         }
 
-   /*     public static WebApplicationBuilder AddLogging(
-            this WebApplicationBuilder builder,
-            IConfiguration configuration)
-        {
-            var logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(configuration)
-                .Enrich.FromLogContext()
-                .CreateLogger();
+/*    public static WebApplicationBuilder AddLogging(
+        this WebApplicationBuilder builder,
+        IConfiguration configuration)
+    {
+        var logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(configuration)
+            .Enrich.FromLogContext()
+            .CreateLogger();
 
-            builder.Logging.ClearProviders();
-            builder.Logging.AddSerilog(logger);
+        builder.Logging.ClearProviders();
+        builder.Logging.AddSerilog(logger);
 
-            return builder;
-        }*/
+        return builder;
+    }*/
 }
