@@ -12,14 +12,18 @@ public class Question
     [MinLength(5)]
     [MaxLength(150)]
     public string Text { get; set; }
-    public Guid CorrectAnswerGuid { get; set; }
+    public string CorrectAnswerGuid { get; set; }
+    public string Answer1 { get; set; }
+    public string AnswerGuid1 { get; set; } = Guid.NewGuid().ToString();
+    public string Answer2 { get; set; }
+    public string AnswerGuid2 { get; set; } = Guid.NewGuid().ToString();
+    public string Answer3 { get; set; }
+    public string AnswerGuid3 { get; set; } = Guid.NewGuid().ToString();
+    public string Answer4 { get; set; }
+    public string AnswerGuid4 { get; set; } = Guid.NewGuid().ToString();
     [Required]
     [ForeignKey("Quiz")]
     public int QuizId { get; set; }
-    public virtual ICollection<Answer> Answers { get; set; }
-/*    [JsonIgnore]
-    [Timestamp]
-    public byte[] Timestamp { get; set; }*/
     [JsonIgnore]
     public Quiz Quiz { get; set; }
 }

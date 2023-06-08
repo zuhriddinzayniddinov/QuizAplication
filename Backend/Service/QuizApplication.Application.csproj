@@ -6,13 +6,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="DataTransferObjects\Users\**" />
-    <EmbeddedResource Remove="DataTransferObjects\Users\**" />
-    <None Remove="DataTransferObjects\Users\**" />
-  </ItemGroup>
-
-  <ItemGroup>
+	<ItemGroup>
     <ProjectReference Include="..\Domen\QuizApplication.Domain.csproj" />
     <ProjectReference Include="..\Infrastructure\QuizApplication.Infrastructure.csproj" />
   </ItemGroup>

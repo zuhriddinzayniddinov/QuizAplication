@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using QuizApplication.Domain.Entities.Users;
+﻿using QuizApplication.Domain.Entities.Users;
 
 namespace QuizApplication.Infrastructure.Repositories.Users;
 

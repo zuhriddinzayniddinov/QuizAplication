@@ -1,103 +1,78 @@
-﻿using QuizApplication.Domain.Entities.Questions;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using QuizApplication.Domain.Entities.Questions;
 using QuizApplication.Domain.Exceptions;
+using QuizApplication.Infrastructure.Contexts;
 
-namespace Infrastructure.Repositories.Questions
+namespace QuizApplication.Infrastructure.Repositories.Questions;
+
+public class QuestionRepository : IQuestionRepository
 {
-    public class QuestionRepository : IQuestionRepository
+    private readonly AppDbContext _appDbContext;
+
+    public QuestionRepository(AppDbContext appDbContext)
     {
-        private readonly AppDbContext _appDbContext;
+        _appDbContext = appDbContext;
+    }
 
-        public QuestionRepository(AppDbContext appDbContext)
-        {
-            _appDbContext = appDbContext;
-        }
+    public async Task<Question> InsertAsync(Question question)
+    {
+        var quiz = await _appDbContext.Quizzes
+                       .Where(q => q.Id == question.QuizId)
+                       .FirstOrDefaultAsync()
+                   ?? throw new NotFoundException("Not found Quiz");
 
-        public async Task<Question> InsertAsync(Question question)
-        {
-            var quiz = await _appDbContext.Quizzes
-                .Where(q => q.Id == question.QuizId)
-                .FirstOrDefaultAsync()
-                       ?? throw new NotFoundException("Not found Quiz");
+        await _appDbContext.Questions.AddAsync(question);
 
-            foreach (var answer in question.Answers)
-            {
-                await this._appDbContext.Answers.AddAsync(answer);
-            }
-
-            await _appDbContext.Questions.AddAsync(question);
-            await this.SaveChangesAsync();
-            return question;
-        }
-
-        public async Task<Question> UpdateAsync(Question question)
-        {
-            this._appDbContext.Questions.Entry(question).State = EntityState.Modified;
-
-            List<Answer> answers = new();
-
-            foreach (var answer in question.Answers)
-            {
-                answers.Add(answer);
-                this._appDbContext.Answers.Entry(answer).State = EntityState.Modified;
-            }
-
-            await this.SaveChangesAsync();
-
-            return question;
-        }
-
-        public async Task<Question> DeleteAsync(long id)
-        {
-            var question = await this._appDbContext.Questions
-                .Where(q => q.Id == id)
-                .FirstOrDefaultAsync()
-                           ?? throw new NotFoundException("Not found question");
-
-            foreach (var answer in question.Answers)
-            {
-                this._appDbContext.Answers.Remove(answer);
-            }
-
-            this._appDbContext.Questions.Remove(question);
-
-            await this.SaveChangesAsync();
-
-            return question;
-
-        }
-        public IQueryable<Question> SelectAll()
-        {
-            var questions = this._appDbContext.Questions;
-
-            foreach (var question in questions)
-            {
-                question.Answers = this._appDbContext.Answers
-                    .Where(a => a.QuestionId == question.Id)
-                    .Select(a => a).ToList();
-            }
+        await this.SaveChangesAsync();
             
-            return questions;
-        }
+        return question;
+    }
 
-        public  IQueryable<Question> SelectByQuizId(int quizId)
-        {
-            var questions = _appDbContext.Questions
-                .Where(q => q.QuizId == quizId);
+    public async Task<Question> UpdateAsync(Question question)
+    {
+        this._appDbContext.Questions.Entry(question).State = EntityState.Modified;
 
-            foreach (var question in questions)
-            {
-                question.Answers = this._appDbContext.Answers
-                    .Where(a => a.QuestionId == question.Id)
-                    .Select(a => a).ToList();
-            }
+        await this.SaveChangesAsync();
 
-            return questions;
-        }
+        return question;
+    }
 
-        public Task<int> SaveChangesAsync()
-        {
-            return this._appDbContext.SaveChangesAsync();
-        }
+    public async Task<Question> SelectByIdAsync(int id)
+    {
+        return await this._appDbContext.Questions.FirstOrDefaultAsync(x => x.Id == id);
+    }
+
+    public async Task<Question> DeleteAsync(long id)
+    {
+        var question = await this._appDbContext.Questions
+                           .Where(q => q.Id == id)
+                           .FirstOrDefaultAsync()
+                       ?? throw new NotFoundException("Not found question");
+
+        this._appDbContext.Questions.Remove(question);
+
+        await this.SaveChangesAsync();
+
+        return question;
+
+    }
+    public IQueryable<Question> SelectAll()
+    {
+        var questions = this._appDbContext.Questions;
+
+        return questions;
+    }
+
+    public  IQueryable<Question> SelectByQuizId(int quizId)
+    {
+        var questions = _appDbContext.Questions
+            .Where(q => q.QuizId == quizId);
+
+        return questions;
+    }
+
+    public Task<int> SaveChangesAsync()
+    {
+        return this._appDbContext.SaveChangesAsync();
     }
 }

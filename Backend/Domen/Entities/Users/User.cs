@@ -18,7 +18,7 @@ public class User
     public string Salt { get; set; }
     public bool Confirmed { get; set; } = true;
     public string PasswordHash { get; set; }
-    public UserRole Role { get; set; } = UserRole.User;
+    public UserRole Role { get; set; } = UserRole.Worker;
     [JsonIgnore]
     public ICollection<Quiz> Quizs { get; set; }
 }

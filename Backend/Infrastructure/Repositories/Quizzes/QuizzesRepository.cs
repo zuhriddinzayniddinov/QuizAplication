@@ -1,8 +1,9 @@
-﻿using QuizApplication.Domain.Entities.Quizzes;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using QuizApplication.Domain.Entities.Quizzes;
 using QuizApplication.Domain.Exceptions;
+using QuizApplication.Infrastructure.Contexts;
 
-namespace Infrastructure.Repositories.Quizzes;
+namespace QuizApplication.Infrastructure.Repositories.Quizzes;
 
 public class QuizzesRepository : IQuizzesRepository
 {

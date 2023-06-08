@@ -1,6 +1,6 @@
-﻿using Infrastructure.Repositories.Quizzes;
-using QuizApplication.Application.DataTransferObjects.Quizzes;
+﻿using QuizApplication.Application.DataTransferObjects.Quizzes;
 using QuizApplication.Domain.Entities.Quizzes;
+using QuizApplication.Infrastructure.Repositories.Quizzes;
 
 namespace QuizApplication.Application.Services.Quizzes
 {

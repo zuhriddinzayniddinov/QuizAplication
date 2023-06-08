@@ -6,4 +6,4 @@ public record UserForCreationDto(
     string name,
     string email,
     string Password,
-    UserRole role = UserRole.User);
+    UserRole role = UserRole.Worker);

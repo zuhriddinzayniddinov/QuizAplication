@@ -1,7 +1,7 @@
-﻿using Infrastructure;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using QuizApplication.Domain.Entities.Users;
 using QuizApplication.Domain.Exceptions;
+using QuizApplication.Infrastructure.Contexts;
 
 namespace QuizApplication.Infrastructure.Repositories.Users;
 

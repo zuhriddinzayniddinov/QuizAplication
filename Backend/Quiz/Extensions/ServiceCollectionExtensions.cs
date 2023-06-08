@@ -1,18 +1,20 @@
-﻿using Infrastructure;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 /*using Serilog;*/
 using System.Text;
-using Infrastructure.Repositories.Questions;
-using Infrastructure.Repositories.Quizzes;
 using QuizApplication.Application.Services.Authentication;
+using QuizApplication.Application.Services.Exams;
 using QuizApplication.Application.Services.Questions;
 using QuizApplication.Application.Services.Quizzes;
 using QuizApplication.Application.Services.Users;
 using QuizApplication.Domain.Enums;
 using QuizApplication.Infrastructure.Authentication;
+using QuizApplication.Infrastructure.Contexts;
+using QuizApplication.Infrastructure.Repositories.Exams;
+using QuizApplication.Infrastructure.Repositories.Questions;
+using QuizApplication.Infrastructure.Repositories.Quizzes;
 using QuizApplication.Infrastructure.Repositories.Users;
 
 namespace QuizApplication.Api.Extensions;
@@ -48,6 +50,7 @@ internal static class ServiceCollectionExtensions
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IQuizzesServices, QuizzesServices>();
+            services.AddScoped<IExamsServices, ExamsServices>();
             services.AddScoped<IQuestionsServices,QuestionsServices>();
             services.AddHttpContextAccessor();
 
@@ -60,6 +63,7 @@ internal static class ServiceCollectionExtensions
             services.AddTransient<IJwtTokenHandler, JwtTokenHandler>();
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
             services.AddScoped<IQuizzesRepository,QuizzesRepository>();
+            services.AddScoped<IExamRepository,ExamRepository>();
             services.AddScoped<IQuestionRepository,QuestionRepository>();
 
             return services;
