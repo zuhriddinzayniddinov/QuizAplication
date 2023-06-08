@@ -1,7 +1,18 @@
-<mat-card>
-    <mat-card-content>
-        <mat-list *ngFor="let quiz of quizzes">
-            <mat-list-item id="clickItem" [routerLink]="['/playquiz',quiz.id]" > {{quiz.title}}</mat-list-item>
-        </mat-list>
-    </mat-card-content>
-</mat-card>
+<app-exam></app-exam>
+<app-exams></app-exams>
+<!-- <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">№</th>
+            <th scope="col">Mavzu</th>
+            <th scope="col"> </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let quiz of quizzes; index as i">
+            <th scope="row">{{i+1}}</th>
+            <td>{{quiz.title}}</td>
+            <td id="clickItem" [routerLink]="['/playquiz',quiz.id]"><button class="btn btn-info">Boshlash</button></td>
+        </tr>
+    </tbody>
+</table> -->

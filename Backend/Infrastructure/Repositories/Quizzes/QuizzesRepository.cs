@@ -1,14 +1,15 @@
-﻿using QuizApplication.Domain.Entities.Quizzes;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using QuizApplication.Domain.Entities.Quizzes;
 using QuizApplication.Domain.Exceptions;
+using QuizApplication.Infrastructure.Contexts;
 
-namespace Infrastructure.Repositories.Quizzes;
+namespace QuizApplication.Infrastructure.Repositories.Quizzes;
 
-public class QuizzesRepasitory : IQuizzesRepasitory
+public class QuizzesRepository : IQuizzesRepository
 {
     private readonly AppDbContext _appDbContext;
 
-    public QuizzesRepasitory(AppDbContext appDbContext)
+    public QuizzesRepository(AppDbContext appDbContext)
     {
         _appDbContext = appDbContext;
     }
@@ -38,14 +39,21 @@ public class QuizzesRepasitory : IQuizzesRepasitory
         return quiz;
     }
 
-    public async Task<IEnumerable<Quiz>> SelectAllAsync()
+    public async Task<IQueryable<Quiz>> SelectAllAsync()
     {
-        return _appDbContext.Quizzes;
+        return this._appDbContext.Quizzes;
     }
 
     public async Task<int> SaveChangesAsync()
     {
         return await this._appDbContext.SaveChangesAsync();
+    }
+
+    public async Task<IQueryable<Quiz>> SelectByUserIdAsync(long userId)
+    {
+        return this._appDbContext.Quizzes
+            .Where(q => q.UserId == userId)
+            .Select(q => q);
     }
 }
 

@@ -1,0 +1,21 @@
+<div *ngIf="exams">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Nomi</th>
+                <th scope="col">Natija</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let exam of exams; index as i">
+                <th id="clickItem" (click)="apiSvc.selectExam(exam)" scope="row">{{i+1}}</th>
+                <td id="clickItem" (click)="apiSvc.selectExam(exam)">{{exam.name}}</td>
+                <td id="clickItem" (click)="apiSvc.selectExam(exam)">{{exam.correctAnswers}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div *ngIf="!exams">
+    <app-spinner style="font-size: 500%;"></app-spinner>
+</div>

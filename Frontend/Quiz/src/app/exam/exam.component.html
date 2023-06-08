@@ -1,0 +1,26 @@
+<form style="margin: 30px;">
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <!-- Toggle button  style="margin-bottom: 10px;"-->
+            <h1>
+                <span *ngIf="exam.id">O'zgartirish</span>
+                <span *ngIf="!exam.id">Yangi</span>
+            </h1>
+            <input type="text" [(ngModel)]="exam.name" name="exam" matInput class="form-control" id="validationServer01"
+                placeholder="Ism" required>
+
+            <select type="search" matInput class="form-control" [(ngModel)]="exam.quizId"
+                name="quizId" id="validationServer01" required>
+                <option *ngFor="let quiz of quizzes" name="quizId" ngValue="{{quiz.id}}">{{quiz.title}}</option>
+            </select>
+
+        </div>
+
+    </div>
+    <div>
+        <button type="button" (click)="post()" class="btn btn-outline-info" style="margin-right: 1%;">Jo'nat</button>
+        <button type="button" (click)="resetExam()" class="btn btn-outline-info" style="margin-right: 1%;">Yangi</button>
+        <button type="button" [disabled]="!exam.id" (click)="navigateToQuestions()"
+            class="btn btn-outline-info">Boshlash</button>
+    </div>
+</form>

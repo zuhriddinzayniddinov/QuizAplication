@@ -6,9 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Domen\QuizAplication.Domain.csproj" />
-    <ProjectReference Include="..\Infrastructure\QuizAplication.Infrastructure.csproj" />
+	<ItemGroup>
+    <ProjectReference Include="..\Domen\QuizApplication.Domain.csproj" />
+    <ProjectReference Include="..\Infrastructure\QuizApplication.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

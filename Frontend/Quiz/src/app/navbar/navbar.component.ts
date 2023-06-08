@@ -7,7 +7,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-
+  bott = false;
 
   constructor(public auth:AuthService){}
 
@@ -15,4 +15,8 @@ export class NavbarComponent {
     this.auth.logout();
   }
 
+  bottActive(){
+    this.bott = !this.bott;
+  }
+  
 }

@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using QuizApplication.Domain.Entities.Questions;
+﻿using QuizApplication.Domain.Entities.Questions;
 
-namespace Infrastructure.Repositories.Questions
+namespace QuizApplication.Infrastructure.Repositories.Questions;
+
+public interface IQuestionRepository
 {
-    public interface IQuestionRepository
-    {
-        Task<Question> InsertAsync(Question question);
-        Task<Question> UpdateAsync(Question question);
-        Task<Question> DeleteAsync(long id);
-        Task<IEnumerable<Question>> SelectAllAsync();
-        Task<IEnumerable<Question>> SelectByQuizIdAsync(int quizId);
-        Task<int> SaveChangesAsync();
-    }
+    Task<Question> InsertAsync(Question question);
+    Task<Question> UpdateAsync(Question question);
+    Task<Question> SelectByIdAsync(int id);
+    Task<Question> DeleteAsync(long id);
+    IQueryable<Question> SelectAll();
+    IQueryable<Question> SelectByQuizId(int quizId);
+    Task<int> SaveChangesAsync();
 }

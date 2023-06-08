@@ -1,5 +1,7 @@
-﻿namespace QuizApplication.Application.DataTransferObjects.Users;
+﻿using QuizApplication.Domain.Enums;
 
-public class UserForModificationDto
-{
-}
+namespace QuizApplication.Application.DataTransferObjects.Users;
+
+public record UserForModificationDto(
+    int id,
+    UserRole role);

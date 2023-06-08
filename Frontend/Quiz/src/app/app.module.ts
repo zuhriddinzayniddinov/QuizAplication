@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { QuestionComponent } from './question.component';
@@ -31,20 +30,29 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatDialogModule} from '@angular/material/dialog';
-import { ScoreDialogComponent } from './score-dialog/score-dialog.component';
 import { HomeQuizzesComponent } from './home-quizzes/home-quizzes.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { AdminUsersComponent } from './admin-users/admin-users.component';
+import { AdminEditUserComponent } from './admin-edit-user/admin-edit-user.component';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { ExamComponent } from './exam/exam.component';
+import { ExamsComponent } from './exams/exams.component';
+import { PlayExamComponent } from './play-exam/play-exam.component';
 
 let routes = [
+  {path: 'exam/:examid', component :PlayExamComponent},
   {path: 'question', component :QuestionComponent},
   {path: 'homequizzes', component :HomeQuizzesComponent},
   {path: 'question/:quizid', component :QuestionComponent},
   {path: 'questions',component : QuestionsComponent},
   {path: 'quiz',component : QuizComponent},
+  {path: 'admin/users',component : AdminUsersComponent},
+  {path: 'admin/edituser/:userid',component : AdminEditUserComponent},
+  {path: 'admin',component : AdminPanelComponent},
   {path: 'register', component :RegisterComponent},
   {path: 'login', component :LoginComponent},
-  {path: 'play',component : PlayComponent},
-  {path: 'playquiz/:quizid',component : PlayQuizComponent},
+  {path: 'play',component : PlayComponent}, 
   {path: '',component:HomeComponent},
   {path: '**',component:NotFoundComponent}
 ]
@@ -63,7 +71,14 @@ let routes = [
     PlayComponent,
     PlayQuizComponent,
     HomeQuizzesComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    AdminPanelComponent,
+    AdminUsersComponent,
+    AdminEditUserComponent,
+    SpinnerComponent,
+    ExamComponent,
+    ExamsComponent,
+    PlayExamComponent
   ],
   imports: [
     BrowserModule,

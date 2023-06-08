@@ -1,0 +1,28 @@
+<div class="container mt-5">
+    <div class="col-lg-10">
+        <div class="border border-info border-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Vasifasi</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <select class="form-select form-select-lg mb-3 lll" aria-label="form-select form-select-lg mb-3" [(ngModel)]="user.role">
+                            <option [ngValue]="1">User</option>
+                            <option [ngValue]="2">Test ishlovchi</option>
+                            <option [ngValue]="3">Test tuzuvchi</option>
+                            <option [ngValue]="4">Admin</option>
+                        </select>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12 text-right">
+                        <button class="btn btn-info w-25 mr-1" (click)="refresh()">Ortga Qaytish</button>
+                        <button class="btn btn-info w-25 ml-1" (click)="Save()">Saqlash</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

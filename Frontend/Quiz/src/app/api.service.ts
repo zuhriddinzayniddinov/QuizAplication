@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { Subject } from 'rxjs';
+import { Observable, Subject, map } from 'rxjs';
 import { Question } from './question';
 import { Quiz } from './quiz';
+import { UserMorify } from './admin-edit-user/user';
+import { SentReply } from './sentReply';
+import { Exam } from './exam';
 
 @Injectable()
 export class ApiService {
@@ -10,6 +13,8 @@ export class ApiService {
     private addQuestion = new Subject<Question>();
     private selectedQuiz = new Subject<Quiz>();
     private addQuiz = new Subject<Quiz>();
+    private selectedExam = new Subject<Exam>();
+    private addExam = new Subject<Exam>();
 
     constructor(private http: HttpClient) { }
 
@@ -17,7 +22,7 @@ export class ApiService {
         return this.addQuestion.asObservable();
     }
 
-    addNewQuestion(question:Question) {
+    addNewQuestion(question: Question) {
         return this.addQuestion.next(question);
     }
 
@@ -41,9 +46,52 @@ export class ApiService {
         return this.addQuiz.asObservable();
     }
 
-    addNewQuiz(quiz:Quiz) {
+    addNewQuiz(quiz: Quiz) {
         return this.addQuiz.next(quiz);
     }
+//----------------------------
+    selectExam(exam: Exam) {
+        this.selectedExam.next(exam);
+    }
+
+    addNewExam(exam: Exam) {
+        return this.addExam.next(exam);
+    }
+
+    getNewExam() {
+        return this.addExam.asObservable();
+    }
+
+    postExam(exam: Exam) {
+        this.http.post('https://localhost:44315/api/Exam/Create', exam)
+            .subscribe(response => {
+                this.addNewExam(response as Exam);
+                console.log(response);
+            });
+    }
+
+    getSelectedExam() {
+        return this.selectedExam.asObservable();
+    }
+
+    getExams() {
+        return this.http.get('https://localhost:44315/api/Exam');
+    }
+
+    getQuestionsByExam(examId: number) {
+        return this.http.get('https://localhost:44315/api/Exam/' + examId);
+    }
+    
+    answer(sentReply : SentReply) : Observable<boolean>{
+
+        return this.http.post('https://localhost:44315/api/Exam',sentReply)
+        .pipe(
+            map(response => {
+                return response.toString() == 'true';
+            })
+        )
+    }
+//----------------
 
     postQuestion(question: Question) {
         this.http.post('https://localhost:44315/api/Question', question)
@@ -52,6 +100,7 @@ export class ApiService {
                 console.log(response);
             });
     }
+
     putQuestion(question: Question) {
         this.http.put('https://localhost:44315/api/Question/' + question.id, question)
             .subscribe(response => {
@@ -59,12 +108,16 @@ export class ApiService {
             });
     }
 
-    getQuestions(quizId:number) {
-        return this.http.get('https://localhost:44315/api/Question/'+quizId);
+    getQuestions(quizId: number) {
+        return this.http.get('https://localhost:44315/api/Question/' + quizId);
     }
 
     getQuizzes() {
         return this.http.get('https://localhost:44315/api/Quizzes');
+    }
+
+    getQuizzesAll() {
+        return this.http.get('https://localhost:44315/api/Quizzes/All');
     }
 
     postQuiz(quiz: Quiz) {
@@ -75,8 +128,23 @@ export class ApiService {
             });
     }
 
-    getAllQuizzes(){
+    getAllQuizzes() {
         return this.http.get('https://localhost:44315/api/Quizzes/All');
+    }
+
+    getAllUsers() {
+        return this.http.get('https://localhost:44315/api/Admin');
+    }
+
+    putUser(userMorify: UserMorify) {
+        this.http.put('https://localhost:44315/api/Admin', userMorify)
+            .subscribe(response => {
+                console.log(response);
+            });
+    }
+
+    getByIdUser(userId: Number) {
+        return this.http.get('https://localhost:44315/api/Admin/' + userId);
     }
 
     putQuiz(quiz: Quiz) {

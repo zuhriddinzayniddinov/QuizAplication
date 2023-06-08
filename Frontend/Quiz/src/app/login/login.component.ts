@@ -9,6 +9,7 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent {
   loginForm;
+  chek=false;
   constructor(private fb: FormBuilder,private auth:AuthService) {
     this.loginForm = this.fb.group({
       email: ['',Validators.required],
@@ -17,6 +18,7 @@ export class LoginComponent {
   }
 
   login() {
+    this.chek = true;
     this.auth.login(this.loginForm.value);
   }
 }

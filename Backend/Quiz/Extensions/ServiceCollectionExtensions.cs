@@ -1,20 +1,20 @@
-﻿using Infrastructure;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 /*using Serilog;*/
 using System.Text;
-using Infrastructure.Repositories.Questions;
-using Infrastructure.Repositories.Quizzes;
 using QuizApplication.Application.Services.Authentication;
+using QuizApplication.Application.Services.Exams;
 using QuizApplication.Application.Services.Questions;
 using QuizApplication.Application.Services.Quizzes;
 using QuizApplication.Application.Services.Users;
 using QuizApplication.Domain.Enums;
 using QuizApplication.Infrastructure.Authentication;
+using QuizApplication.Infrastructure.Contexts;
+using QuizApplication.Infrastructure.Repositories.Exams;
+using QuizApplication.Infrastructure.Repositories.Questions;
+using QuizApplication.Infrastructure.Repositories.Quizzes;
 using QuizApplication.Infrastructure.Repositories.Users;
 
 namespace QuizApplication.Api.Extensions;
@@ -49,8 +49,9 @@ internal static class ServiceCollectionExtensions
         {
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
-            services.AddScoped<IQuizzisServiceis, QuizzisServiceis>();
-            services.AddScoped<IQuestionsServiceis,QuestionsServiceis>();
+            services.AddScoped<IQuizzesServices, QuizzesServices>();
+            services.AddScoped<IExamsServices, ExamsServices>();
+            services.AddScoped<IQuestionsServices,QuestionsServices>();
             services.AddHttpContextAccessor();
 
             return services;
@@ -61,7 +62,8 @@ internal static class ServiceCollectionExtensions
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddTransient<IJwtTokenHandler, JwtTokenHandler>();
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
-            services.AddScoped<IQuizzesRepasitory,QuizzesRepasitory>();
+            services.AddScoped<IQuizzesRepository,QuizzesRepository>();
+            services.AddScoped<IExamRepository,ExamRepository>();
             services.AddScoped<IQuestionRepository,QuestionRepository>();
 
             return services;
@@ -98,7 +100,7 @@ internal static class ServiceCollectionExtensions
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = configuration["JwtSettings:Issuer"],
                     IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(configuration["JwtSettings:SecretKey"])),
+                        Encoding.UTF8.GetBytes(configuration["JwtSettings:SecretKey"]!)),
                     ClockSkew = TimeSpan.Zero
                 };
             });
@@ -110,7 +112,7 @@ internal static class ServiceCollectionExtensions
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AloShop.Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "QuizApplication.Api", Version = "v1" });
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {

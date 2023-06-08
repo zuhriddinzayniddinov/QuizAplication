@@ -1,14 +1,64 @@
-<mat-toolbar>
-    <button mat-button routerLink="/">Asosiy</button>
-    <button *ngIf="auth.role" mat-button routerLink="/homequizzes">Test tuzish</button>
-    <button mat-button routerLink="/play">Test ishlash</button>
-    <span style="flex: auto;"></span>
-    <div *ngIf="!auth.isAuth">
-        <button mat-button routerLink="/login">Kirish</button>
-        <button mat-button routerLink="/register">Ro'yxatdan o'tish</button>
+<!-- Navbar bg-light fixed-top -->
+<nav class="navbar navbar-expand-lg navbar-light  d-flex justify-content-between">
+  <!-- Container wrapper -->
+  <div class="container">
+    <!-- Toggle button -->
+    <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
+      <!-- Left links -->
+      <div>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link d-flex flex-column text-center" aria-current="page" routerLink="/"><span
+              class="small">Asosiy</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex flex-column text-center" aria-current="page" *ngIf="auth.role"
+            routerLink="/homequizzes"><i class="fas fa-user-friends fa-lg"></i><span class="small">Test
+              tuzish</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex flex-column text-center" aria-current="page" routerLink="/play"><i
+              class="fas fa-briefcase fa-lg"></i><span class="small">Test ishlash</span></a>
+        </li>
+      </ul>
+
+</div>
+
+      <div class="d-flex justify-content-between">
+
+      <div *ngIf="!auth.isAuth" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link d-flex flex-column text-center" aria-current="page" routerLink="/login"><i
+                class="fas fa-briefcase fa-lg"></i><span class="small">Kirish</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-flex flex-column text-center" aria-current="page" routerLink="/register"><i
+                class="fas fa-briefcase fa-lg"></i><span class="small">Ro'yxatdan o'tish</span></a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="dropdown" *ngIf="auth.isAuth">
+        <a class="nav-link d-flex flex-column text-center" style="cursor: pointer;" aria-current="page" data-toggle="dropdown"
+          id="dropdownMenuButton"><i class="fas fa-briefcase fa-lg"></i><span class="small">{{auth.Name}}</span></a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="nav-link d-flex flex-column text-center" style="cursor: pointer;"  aria-current="page" (click)="logout()"><i
+              class="fas fa-briefcase fa-lg"></i><span class="small" style="color: red;">Chiqish</span></a>
+        </div>
+      </div>
     </div>
-    <div *ngIf="auth.isAuth">
-        <span>Foydalanuvchi ismi: {{auth.Name}}</span>
-        <button mat-button (click)="logout()" routerLink="/">Chiqish</button>
+
+
+      <!-- Left links -->
     </div>
-</mat-toolbar>
+    <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->

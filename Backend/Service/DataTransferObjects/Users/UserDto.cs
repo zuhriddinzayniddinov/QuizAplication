@@ -2,6 +2,7 @@
 
 namespace QuizApplication.Application.DataTransferObjects.Users;
 
+
 public record UserDto(
     int id,
     string name,

@@ -1,10 +1,19 @@
-<mat-card>
-    <mat-card-content>
-        <mat-list *ngFor="let quiz of quizzes">
-            <mat-list-item id="clickItem" (click)="apiSvc.selectQuiz(quiz)"> {{quiz.title}}</mat-list-item>
-        </mat-list>
-    </mat-card-content>
-    <mat-card-actions>
-
-    </mat-card-actions>
-</mat-card>
+<div *ngIf="quizzes">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Mavzu</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let quiz of quizzes; index as i">
+                <th id="clickItem" (click)="apiSvc.selectQuiz(quiz)" scope="row">{{i+1}}</th>
+                <td id="clickItem" (click)="apiSvc.selectQuiz(quiz)">{{quiz.title}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div *ngIf="!quizzes">
+    <app-spinner style="font-size: 500%;"></app-spinner>
+</div>

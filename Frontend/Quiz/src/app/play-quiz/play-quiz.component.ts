@@ -1,75 +1,58 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, forwardRef } from '@angular/core';
 import { ApiService } from '../api.service';
 import { ActivatedRoute } from '@angular/router';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ScoreDialogComponent } from '../score-dialog/score-dialog.component';
+import { Answer, Question } from '../question';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-play-quiz',
   templateUrl: './play-quiz.component.html',
-  styleUrls: ['./play-quiz.component.css']
+  styleUrls: ['./play-quiz.component.css'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => Question),
+      multi: true,
+    }
+  ]
 })
+
 export class PlayQuizComponent implements OnInit {
-  
-  questions:any;
+  questions: any;
   quizId: number = 1;
-  step = 0;
+  selects: string[] = [];
 
-  constructor(public apiSvc : ApiService,private route:ActivatedRoute,public dialog: MatDialog) {
-    
-  }
+  constructor(
+    public apiSvc: ApiService,
+    private route: ActivatedRoute,
+    public dialog: MatDialog) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.quizId = Number(this.route.snapshot.paramMap.get('quizid'));
     this.apiSvc.getQuestions(this.quizId).subscribe(result => {
       this.questions = result;
-      this.questions.forEach((q: { answers: { display: any; value: boolean; }[]; correctAnswer: any; wrongAnswer1: any; wrongAnswer2: any; wrongAnswer3: any; }) => {
-        q.answers =
-        [{ display: q.correctAnswer, value: true },
-          { display: q.wrongAnswer1, value: false },
-          { display: q.wrongAnswer2, value: false },
-          { display: q.wrongAnswer3, value: false }];
-          this.shuffleAnswers(q.answers);
-      });
     });
-}
-
-finishTest(){
-  let correctAnswer = 0;
-  this.questions.forEach((q: { selectedQuestion: any; }) =>{
-    if (q.selectedQuestion) {
-      correctAnswer++;
-    }
-  });
-  
-  const dialogRef = this.dialog.open(ScoreDialogComponent, {
-    data: {correctAnswer,totalQuestions: this.questions.length },
-  });
-
-  dialogRef.afterClosed().subscribe(result => {
-    console.log('The dialog was closed');
-  });
-}
-
-
-
-setStep(index: number) {
-    this.step = index;
+    this.apiSvc.getNewQuestion().subscribe(result => {
+      this.questions.push(result);
+    })
   }
 
-  nextStep() {
-    this.step++;
-  }
-
-  prevStep() {
-    this.step--;
-  }
-
-  shuffleAnswers(answers: { display: string, value: boolean }[]): { display: string, value: boolean }[] {
-    for (let i = answers.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [answers[i], answers[j]] = [answers[j], answers[i]];
-    }
-    return answers;
+  Bosdi(cheked: any, index: number) {
+    // for (const element in this.questions[index]) {
+    //   if (this.questions[index][element].answerGuid && this.questions[index][element].answerGuid == cheked.as) {
+    //     this.questions[index].respons = true;
+    //     this.apiSvc
+    //       .answer({ id: this.questions[index].id, quizId: this.questions[index].quizId, answerGuid: cheked.as })
+    //       .subscribe(obj => {
+    //         if (obj)
+    //           this.questions[index][element].color = 'green';
+    //         else
+    //           this.questions[index][element].color = 'red';
+    //         this.questions[index].processed = true;
+    //       });
+    //   }
+    // }
   }
 }

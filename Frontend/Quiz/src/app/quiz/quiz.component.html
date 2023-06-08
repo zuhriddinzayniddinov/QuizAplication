@@ -1,18 +1,18 @@
-<mat-card>
-    <mat-card-title>
-        <span *ngIf="quiz.id">O'zgartirish</span>
-        <span *ngIf="!quiz.id">Yangi</span>
-    </mat-card-title>
-    <mat-card-content>
-        <form>
-            <mat-form-field class="fullWith">
-                <input  [(ngModel)]="quiz.title" name="quiz" matInput placeholder="Sarlavha">
-            </mat-form-field>
-        </form>
-    </mat-card-content>
-    <mat-card-actions>
-        <button (click)="post()" mat-button>Jo'nat</button>
-        <button (click)="resetQuiz()" mat-button>Yangi</button>
-        <button [disabled]="!quiz.id" (click)="navigateToQuestions()" mat-button>Savollar</button>
-    </mat-card-actions>
-</mat-card>
+<form style="margin: 30px;">
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <!-- Toggle button  style="margin-bottom: 10px;"-->
+            <h1>
+                <span *ngIf="quiz.id">O'zgartirish</span>
+                <span *ngIf="!quiz.id">Yangi</span>
+            </h1>
+            <input type="text" [(ngModel)]="quiz.title" name="quiz" matInput class="form-control"
+                id="validationServer01" placeholder="Sarlavha" required>
+        </div>
+    </div>
+    <div >
+        <button type="button" (click)="post()" class="btn btn-outline-info" style="margin-right: 1%;">Jo'nat</button>
+        <button type="button" (click)="resetQuiz()" class="btn btn-outline-info" style="margin-right: 1%;">Yangi</button>
+        <button type="button" [disabled]="!quiz.id" (click)="navigateToQuestions()" class="btn btn-outline-info">Savollar</button>
+    </div>
+</form>

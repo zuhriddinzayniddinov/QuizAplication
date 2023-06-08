@@ -1,30 +1,27 @@
-<mat-card>
-    <mat-card-title>
-        <span *ngIf="question.id">Savolni o'zgartirish</span>
-        <span *ngIf="!question.id">Yangi savol</span>
-    </mat-card-title>
-    <mat-card-content>
-        <form>
-            <mat-form-field class="fullWith">
-                <input [(ngModel)]="question.text" name="question" matInput placeholder="Savol">
-            </mat-form-field>
-            <mat-form-field class="fullWith">
-                <input [(ngModel)]="question.correctAnswer" name="correctAnswer" matInput placeholder="To'g'ri javob">
-            </mat-form-field>
-            <mat-form-field class="fullWith">
-                <input [(ngModel)]="question.wrongAnswer1" name="wrongAnswer1" matInput placeholder="Noto'g'ri javob">
-            </mat-form-field>
-            <mat-form-field class="fullWith">
-                <input [(ngModel)]="question.wrongAnswer2" name="wrongAnswer2" matInput placeholder="Noto'g'ri javob">
-            </mat-form-field>
-            <mat-form-field class="fullWith">
-                <input [(ngModel)]="question.wrongAnswer3" name="wrongAnswer3" matInput placeholder="Noto'g'ri javob">
-            </mat-form-field>
-        </form>
-    </mat-card-content>
-    <mat-card-actions>
-        <button (click)="post()" mat-button>Jo'nat</button>
-        <button (click)="resetQuesttion()" mat-button>Yangi savol</button>
-    </mat-card-actions>
-</mat-card>
+<form style="margin: 30px;">
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <h1>
+                <span *ngIf="question.id">Savolni o'zgartirish</span>
+                <span *ngIf="!question.id">Yangi savol</span>
+            </h1>
+            <form>
+                <input type="text" [(ngModel)]="question.text" name="question" matInput placeholder="Savol"
+                    class="form-control inputlar" id="validationServer01" required>
+                <input [(ngModel)]="question.answer1.text" name="correctAnswer" matInput placeholder="To'g'ri javob"
+                    class="form-control inputlar" id="validationServer01" required>
+                <input [(ngModel)]="question.answer2.text" name="wrongAnswer1" matInput placeholder="Noto'g'ri javob"
+                    class="form-control inputlar" id="validationServer01" required>
+                <input [(ngModel)]="question.answer3.text" name="wrongAnswer2" matInput placeholder="Noto'g'ri javob"
+                    class="form-control inputlar" id="validationServer01" required>
+                <input [(ngModel)]="question.answer4.text" name="wrongAnswer3" matInput placeholder="Noto'g'ri javob"
+                    class="form-control inputlar" id="validationServer01" required>
+            </form>
+        </div>
+    </div>
+    <div>
+        <button (click)="post()" class="btn btn-info" style="margin-right: 1%;">Jo'nat</button>
+        <button (click)="resetQuesttion()" class="btn btn-info" style="margin-right: 1%;">Yangi savol</button>
+    </div>
+</form>
 <questions></questions>

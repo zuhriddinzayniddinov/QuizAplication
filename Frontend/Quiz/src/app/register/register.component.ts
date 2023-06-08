@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Role } from './Roles';
+import { User } from '../user';
+import { Router } from '@angular/router';
+import { NotificationService } from '../notification.service';
 
 @Component({
   selector: 'app-register',
@@ -9,22 +11,27 @@ import { Role } from './Roles';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  roles: Role[] = [
-    {value: 1, viewValue: 'User'},
-    {value: 2, viewValue: 'Worker'},
-    {value: 3, viewValue: 'Maker'},
-    {value: 4, viewValue: 'Admin'},
-  ];
+
+  chek = false;
   registerForm;
-  constructor(private fb: FormBuilder,private auth:AuthService) {
+  user: any;
+  constructor(private fb: FormBuilder,private auth:AuthService,private router:Router,private noti:NotificationService) {
     this.registerForm = this.fb.group({
       name: ['',Validators.required],
       email: ['',Validators.required],
-      password: ['',Validators.required],
-      role:[1,Validators.required]
+      password: ['',Validators.required]
     });
   }
-  register(){
-    this.auth.register(this.registerForm.value)
+
+  register() {
+    this.chek = true;
+    this.auth.register(this.registerForm.value as User);
+    this.auth.getNewUser().subscribe(us => {
+      this.user = us;
+      if (this.user) {
+        this.noti.showNotification("Muvaffaqiyatli ro'yxatdan o'tildi.");
+        this.router.navigate(['login']);
+      }
+    }); 
   }
 }

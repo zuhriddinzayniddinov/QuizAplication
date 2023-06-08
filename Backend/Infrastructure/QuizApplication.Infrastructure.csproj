@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domen\QuizAplication.Domain.csproj" />
+    <ProjectReference Include="..\Domen\QuizApplication.Domain.csproj" />
   </ItemGroup>
 
 </Project>
