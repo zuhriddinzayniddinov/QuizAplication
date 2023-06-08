@@ -1,0 +1,52 @@
+<div *ngIf="questions">
+    <div class="container">
+      <div class="heading">
+        <h1 class="heading__text">Test</h1>
+      </div>
+      <div class="quiz">
+        <form #frm="ngForm" [ngModel] class="quiz-form" *ngFor="let question of questions;index as i">
+          <div class="quiz-form__quiz">
+            <p class="quiz-form__question">
+              {{i+1}} . {{question.text}}
+            </p>
+            <label class="quiz-form__ans" [ngStyle]="{ 'background-color': question.answer1.color }" for="{{i}}fa">
+              <input type="radio" ngModel name="as" id="{{i}}fa" [value]="question.answer1.answerGuid" />
+              <span class="design"></span>
+              <span class="text">{{question.answer1.text}}</span>
+            </label>
+            <label class="quiz-form__ans" [ngStyle]="{ 'background-color': question.answer2.color }" for="{{i}}fb">
+              <input type="radio" ngModel name="as" id="{{i}}fb" [value]="question.answer2.answerGuid" />
+              <span class="design"></span>
+              <span class="text">{{question.answer2.text}}</span>
+            </label>
+            <label class="quiz-form__ans" [ngStyle]="{ 'background-color': question.answer3.color }" for="{{i}}fc">
+              <input type="radio" ngModel name="as" id="{{i}}fc" [value]="question.answer3.answerGuid" />
+              <span class="design"></span>
+              <span class="text">{{question.answer3.text}}</span>
+            </label>
+            <label class="quiz-form__ans" [ngStyle]="{ 'background-color': question.answer4.color }" for="{{i}}fd">
+              <input type="radio" ngModel name="as" id="{{i}}fd" [value]="question.answer4.answerGuid" />
+              <span class="design"></span>
+              <span class="text">{{question.answer4.text}}</span>
+            </label>
+          </div>
+          <div *ngIf="!question.processed">
+            <button class="submit" type="submit" (click)="Bosdi(frm.value,i)">
+              <div *ngIf="!question.respons">
+                Jo'natish
+              </div>
+              <div *ngIf="question.respons">
+                <app-spinner style="font-size: 140%;"></app-spinner>
+              </div>
+            </button>
+          </div>
+          <div *ngIf="question.processed">
+            <span style="height: auto;"></span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!questions">
+    <app-spinner style="font-size: 500%;"></app-spinner>
+  </div>

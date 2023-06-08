@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { Subject } from 'rxjs';
+import { Observable, Subject, map } from 'rxjs';
 import { Question } from './question';
 import { Quiz } from './quiz';
 import { UserMorify } from './admin-edit-user/user';
+import { SentReply } from './sentReply';
+import { Exam } from './exam';
 
 @Injectable()
 export class ApiService {
@@ -11,6 +13,8 @@ export class ApiService {
     private addQuestion = new Subject<Question>();
     private selectedQuiz = new Subject<Quiz>();
     private addQuiz = new Subject<Quiz>();
+    private selectedExam = new Subject<Exam>();
+    private addExam = new Subject<Exam>();
 
     constructor(private http: HttpClient) { }
 
@@ -45,6 +49,49 @@ export class ApiService {
     addNewQuiz(quiz: Quiz) {
         return this.addQuiz.next(quiz);
     }
+//----------------------------
+    selectExam(exam: Exam) {
+        this.selectedExam.next(exam);
+    }
+
+    addNewExam(exam: Exam) {
+        return this.addExam.next(exam);
+    }
+
+    getNewExam() {
+        return this.addExam.asObservable();
+    }
+
+    postExam(exam: Exam) {
+        this.http.post('https://localhost:44315/api/Exam/Create', exam)
+            .subscribe(response => {
+                this.addNewExam(response as Exam);
+                console.log(response);
+            });
+    }
+
+    getSelectedExam() {
+        return this.selectedExam.asObservable();
+    }
+
+    getExams() {
+        return this.http.get('https://localhost:44315/api/Exam');
+    }
+
+    getQuestionsByExam(examId: number) {
+        return this.http.get('https://localhost:44315/api/Exam/' + examId);
+    }
+    
+    answer(sentReply : SentReply) : Observable<boolean>{
+
+        return this.http.post('https://localhost:44315/api/Exam',sentReply)
+        .pipe(
+            map(response => {
+                return response.toString() == 'true';
+            })
+        )
+    }
+//----------------
 
     postQuestion(question: Question) {
         this.http.post('https://localhost:44315/api/Question', question)
@@ -67,6 +114,10 @@ export class ApiService {
 
     getQuizzes() {
         return this.http.get('https://localhost:44315/api/Quizzes');
+    }
+
+    getQuizzesAll() {
+        return this.http.get('https://localhost:44315/api/Quizzes/All');
     }
 
     postQuiz(quiz: Quiz) {

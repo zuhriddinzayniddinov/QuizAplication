@@ -12,15 +12,16 @@ export class AuthService {
   private addUser = new Subject<User>();
   constructor(private http: HttpClient, private router: Router) { }
 
-  login(credations: any) {
-    this.http.post<any>('https://localhost:44315/api/Account', credations)
+  login(credations: any) { 
+      this.http.post<any>('https://localhost:44315/api/Account', credations)
       .subscribe(response => {
         localStorage.setItem('name', response.name);
         localStorage.setItem('role', response.role);
         localStorage.setItem('accessToken', response.accessToken);
         localStorage.setItem('expireDate', response.expireDate);
+        if(response)
+        this.router.navigate(['/']);
       });
-    this.router.navigate(['/']);
   }
 
   get Name() {
@@ -44,6 +45,7 @@ export class AuthService {
 
   logout() {
     localStorage.clear();
+    this.router.navigate(['/']);
   }
 
   get role() {

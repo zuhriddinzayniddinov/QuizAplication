@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { QuestionComponent } from './question.component';
@@ -36,11 +35,13 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { AdminEditUserComponent } from './admin-edit-user/admin-edit-user.component';
-import { NotificationComponent } from './notification/notification.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { ExamComponent } from './exam/exam.component';
+import { ExamsComponent } from './exams/exams.component';
+import { PlayExamComponent } from './play-exam/play-exam.component';
 
 let routes = [
-  {path: 'loading', component :NotificationComponent},
+  {path: 'exam/:examid', component :PlayExamComponent},
   {path: 'question', component :QuestionComponent},
   {path: 'homequizzes', component :HomeQuizzesComponent},
   {path: 'question/:quizid', component :QuestionComponent},
@@ -51,8 +52,7 @@ let routes = [
   {path: 'admin',component : AdminPanelComponent},
   {path: 'register', component :RegisterComponent},
   {path: 'login', component :LoginComponent},
-  {path: 'play',component : PlayComponent},
-  {path: 'playquiz/:quizid',component : PlayQuizComponent},
+  {path: 'play',component : PlayComponent}, 
   {path: '',component:HomeComponent},
   {path: '**',component:NotFoundComponent}
 ]
@@ -75,8 +75,10 @@ let routes = [
     AdminPanelComponent,
     AdminUsersComponent,
     AdminEditUserComponent,
-    NotificationComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ExamComponent,
+    ExamsComponent,
+    PlayExamComponent
   ],
   imports: [
     BrowserModule,

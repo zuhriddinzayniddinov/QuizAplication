@@ -6,9 +6,14 @@ export class Question {
     answer3: Answer = new Answer();
     answer4: Answer = new Answer();
     quizid: number = 0;
+    answerGuid:string = '';
+    answer: boolean= false;
+    processed: boolean = false;
+    respons: boolean = false;
   }
   
 export class Answer {
   text: string = '';
   answerGuid: string = '';
+  color: string = '#';
 }
